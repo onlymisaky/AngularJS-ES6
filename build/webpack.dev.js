@@ -1,12 +1,12 @@
 const path = require('path');
 const merge = require('webpack-merge');
+
 const common = require('./webpack.common');
 
 const paths = {
     src: path.resolve(__dirname, '../src'),
     dist: path.resolve(__dirname, '../dist')
 }
-
 
 const output = {
     path: paths.dist,

@@ -26,9 +26,10 @@ module.exports = merge(common, {
             template: paths.src + '/index.html',
             inject: 'body'
         }),
-        new webpack.optimize.CommonsChunkPlugin(
-            { names: ["vendor"] }
-        ),
+        new webpack.HashedModuleIdsPlugin(),
+        new webpack.optimize.CommonsChunkPlugin({
+            names: ['vendor', 'common']
+        }),
         new ExtractTextPlugin("[name].[contenthash].css"),
         new webpack.optimize.UglifyJsPlugin({
             compress: {

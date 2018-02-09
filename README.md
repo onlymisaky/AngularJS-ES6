@@ -265,7 +265,7 @@ export default angular
 
 项目构建当然使用标题中的[webpack](https://webpack.js.org/)，我觉的webpack配置是一门玄学，所以我采用了`随缘配置法`和`借鉴配置法`:smirk::smirk::smirk:。
 
-这一步写的比较烂，后面后逐步优化构建脚本。
+这一步写的比较烂，后面会逐步优化构建脚本。
 
 ## 参考 
 - [AngularJS styleguide (ES2015)](https://github.com/toddmotto/angularjs-styleguide)

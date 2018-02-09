@@ -1,14 +1,9 @@
-
-const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const common = require('./webpack.common');
 
-const paths = {
-    src: path.resolve(__dirname, '../src'),
-    dist: path.resolve(__dirname, '../dist')
-}
+const common = require('./webpack.common');
+const paths = require('./paths');
 
 const output = {
     path: paths.dist,

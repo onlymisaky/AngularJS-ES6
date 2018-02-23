@@ -273,3 +273,7 @@ export default angular
 - [Angular1.x + ES6 开发风格指南](https://github.com/kuitos/kuitos.github.io/issues/34)
 - [Angular沉思录（三）Angular中的模块机制](https://github.com/xufei/blog/issues/17)
 - [基于ui-router的非侵入式angular按需加载方案](https://github.com/kuitos/kuitos.github.io/issues/31)
+
+
+## 其它
+[angular-1-5-components-app](https://github.com/toddmotto/angular-1-5-components-app)

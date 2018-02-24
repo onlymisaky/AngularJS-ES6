@@ -11,7 +11,7 @@
     ],
     "scripts": {
         "dev": "webpack-dev-server --hot --inline --progress --open --config  build/webpack.dev.js",
-        "build": "webpack --config build/webpack.prod.js"
+        "build": "node build/build.js"
     },
     "dependencies": {
         "@uirouter/angularjs": "^1.0.15",

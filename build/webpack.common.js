@@ -1,9 +1,10 @@
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 
-const rules = require('./rules');
-const paths = require('./paths');
+const rules = require('./config/rules');
+const paths = require('./config/paths');
+// const env = require('./config/env');
 
+// 入口文件
 const entry = {
     vendor: [
         'angular',
@@ -12,17 +13,16 @@ const entry = {
     app: paths.src + '/app.js',
 };
 
-
 module.exports = {
     entry,
     module: {
         rules
     },
+    // 插件的顺序会影响打包
     plugins: [
-        // new CleanWebpackPlugin(path.resolve(__dirname, '../dist')),
-        new HtmlWebpackPlugin({
-            template: paths.src + '/index.html',
-            inject: 'body'
-        }),
+        // 指定环境
+        // new webpack.DefinePlugin(Object.assign(
+        //     { 'process.env.NODE_ENV': JSON.stringify('production') }
+        // ))
     ]
-}
+};

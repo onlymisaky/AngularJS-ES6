@@ -1,7 +1,7 @@
 {
-    "name": "angularjs-project",
+    "name": "angularjs-es6-seed",
     "version": "1.0.0",
-    "description": "A AngularJs project demo with ES6 and webpack2",
+    "description": "",
     "author": "onlymisaky",
     "license": "ISC",
     "keywords": [

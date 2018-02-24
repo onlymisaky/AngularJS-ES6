@@ -3,7 +3,7 @@ const merge = require('webpack-merge');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const common = require('./webpack.common');
+const webpackCommon = require('./webpack.common');
 const paths = require('./config/paths');
 
 // 出口
@@ -12,7 +12,7 @@ const output = {
     filename: 'js/[name].[chunkhash].js'
 };
 
-module.exports = merge(common, {
+module.exports = merge(webpackCommon, {
     output,
     plugins: [
         // 提取公共模块
@@ -31,7 +31,8 @@ module.exports = merge(common, {
             inject: 'body',
             minify: {
                 removeComments: true,
-                collapseWhitespace: false
+                collapseWhitespace: true,
+                removeAttributeQuotes: true
             }
         }),
 

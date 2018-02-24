@@ -1,9 +1,9 @@
 尝试用`ES6/ES7`+`webpack`为`angularJS`写一个seed。
 
 ```bash
-npm run i
-npm run dev
-npm run build
+npm run i # 安装依赖
+npm run dev # 开发模式，暂时不可用
+npm run build # 打包
 ```
 
 ## 开发日记
@@ -263,7 +263,7 @@ export default angular
 
 ### 7、项目构建
 
-项目构建当然使用标题中的[webpack](https://webpack.js.org/)，我觉的webpack配置是一门玄学，所以我采用了`随缘配置法`和`借鉴配置法`:smirk::smirk::smirk:。
+项目构建当然使用标题中的[webpack](https://webpack.js.org/)，我觉的webpack配置是一门玄学，所以我顺便又把它再学了一遍，希望早日出现一个替代它的工具:smirk::smirk::smirk:。
 
 这一步写的比较烂，后面会逐步优化构建脚本。
 

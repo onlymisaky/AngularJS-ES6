@@ -28,13 +28,17 @@ module.exports = merge(common, {
         // 将打包好的文件注入到 html 中
         new HtmlWebpackPlugin({
             template: paths.src + '/index.html',
-            inject: 'body'
+            inject: 'body',
+            minify: {
+                removeComments: true,
+                collapseWhitespace: false
+            }
         }),
 
-        // // 压缩代码
-        // new webpack.optimize.UglifyJsPlugin({
-        //     compress: { warnings: false },
-        //     output: { comments: false, }
-        // })
+        // 压缩js代码
+        new webpack.optimize.UglifyJsPlugin({
+            compress: { warnings: false },
+            output: { comments: false, }
+        }),
     ]
 });

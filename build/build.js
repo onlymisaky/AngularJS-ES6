@@ -24,8 +24,5 @@ rimraf(paths.dist, err => {
 
         tips.succeed('build complete');
     });
-
-
-
 });
 

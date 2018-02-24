@@ -1,6 +1,5 @@
 const extract = require('extract-text-webpack-plugin').extract;
 
-
 let cssLoader = ['css-loader'];
 
 let loaders = {

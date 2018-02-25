@@ -1,5 +1,6 @@
 const express = require('express');
 const webpack = require('webpack');
+const opn = require('opn');
 
 const webpackConfig = require('./webpack.dev');
 const paths = require('./config/paths');
@@ -9,6 +10,9 @@ const compiler = webpack(webpackConfig);
 
 // https://www.jianshu.com/p/469ad98ad1da
 const devMiddleware = require('webpack-dev-middleware')(compiler, {
+    stats: {
+        colors: true,
+    },
     publicPath: '/',
     quiet: true
 });
@@ -29,6 +33,11 @@ app.use(devMiddleware);
 
 // 热加载
 app.use(hotMiddleware);
+
+// 自动打开浏览器
+devMiddleware.waitUntilValid(stats => {
+    opn('http://localhost:' + 3000);
+});
 
 // 监听端口
 app.listen(3000);

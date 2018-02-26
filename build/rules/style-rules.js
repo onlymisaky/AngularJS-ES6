@@ -3,7 +3,6 @@ const isProduction = process.env.APP_ENV === 'production';
 const extract = require('extract-text-webpack-plugin').extract;
 
 // css-loader 配置, production 环境下需要压缩
-// 
 let cssLoader = {
     loader: 'css-loader',
     options: {
@@ -53,7 +52,7 @@ module.exports = [
     },
     {
         test: /\.sass$/,
-        use: generateLoaders('sass-loader?indentedSyntax=true')
+        use: generateLoaders('sass',{ indentedSyntax: false })
     },
     {
         test: /\.scss$/,

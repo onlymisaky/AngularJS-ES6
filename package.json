@@ -10,8 +10,8 @@
         "webpack"
     ],
     "scripts": {
-        "dev": "node build/dev.js",
-        "build": "node build/build.js"
+        "dev": "cross-env APP_ENV=development node build/dev.js",
+        "build": "cross-env APP_ENV=production node build/build.js"
     },
     "dependencies": {
         "@uirouter/angularjs": "^1.0.15",

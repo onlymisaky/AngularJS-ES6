@@ -2,7 +2,7 @@ const webpack = require('webpack');
 
 const rules = require('./rules');
 const paths = require('./config/paths');
-// const env = require('./config/env');
+const env = require('./config/env');
 
 // 入口文件
 const entry = {
@@ -21,8 +21,8 @@ module.exports = {
     // 插件的顺序会影响打包
     plugins: [
         // 指定环境
-        // new webpack.DefinePlugin(Object.assign(
-        //     { 'process.env.NODE_ENV': JSON.stringify('production') }
-        // ))
+        new webpack.DefinePlugin({
+            'process.env': env,
+        })
     ]
 };

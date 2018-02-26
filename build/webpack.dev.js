@@ -27,10 +27,6 @@ module.exports = merge(webpackCommon, {
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoEmitOnErrorsPlugin(),
 
-        // 提取css
-        // 完成 ENV 后，此处可以取消 
-        new ExtractTextPlugin({ filename: 'css/[name].[contenthash].css', }),
-
         // 处理 index.html
         new HtmlWebpackPlugin({
             template: paths.src + '/index.html',

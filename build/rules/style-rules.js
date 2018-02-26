@@ -1,39 +1,62 @@
+const isProduction = process.env.APP_ENV === 'production';
+
 const extract = require('extract-text-webpack-plugin').extract;
 
-let cssLoader = 'css-loader';
-
-let loaders = {
-    css: cssLoader,
-    less: [cssLoader, 'less-loader'],
-    sass: [cssLoader, 'sass-loader?indentedSyntax=true'],
-    scss: [cssLoader, 'sass-loader']
+// css-loader 配置, production 环境下需要压缩
+// 
+let cssLoader = {
+    loader: 'css-loader',
+    options: {
+        options: { minimize: !!isProduction }
+    }
 };
 
-let styleRules = [];
+/**
+ * @name 根据 loader 生成对用的配置
+ * @param {String} loader
+ * @param {options} options
+ * @link https://www.npmjs.com/package/less-loader
+ * @link https://www.npmjs.com/package/sass-loader
+ */
+const generateLoaders = (loader, options) => {
 
-Object.keys(loaders).forEach(ext => {
+    let loaders = [cssLoader];
 
-    let rule = {
-        test: new RegExp('\\.' + ext + '$'),
-        use: extract({
-            fallback: 'style-loader',
-            use: loaders[ext],
-        })
-    };
-
-    // 压缩css
-    if (ext === 'css') {
-        rule.use = extract({
-            fallback: 'style-loader',
-            use: [{
-                loader: 'css-loader',
-                options: { minimize: true }
-            }]
+    if (loader) {
+        loaders.push({
+            loader: loader + '-loader',
+            options: Object.assign({}, options) // 防止 undefined 键
         });
     }
 
-    styleRules.push(rule);
 
-});
 
-module.exports = styleRules;
+    // production 环境下分离 css 和 js
+    if (isProduction) {
+        return extract({
+            use: loaders,
+            fallback: 'style-loader'
+        });
+    } else {
+        return ['style-loader'].concat(loaders);
+    }
+}
+
+module.exports = [
+    {
+        test: /\.css$/,
+        use: generateLoaders()
+    },
+    {
+        test: /\.less$/,
+        use: generateLoaders('less')
+    },
+    {
+        test: /\.sass$/,
+        use: generateLoaders('sass-loader?indentedSyntax=true')
+    },
+    {
+        test: /\.scss$/,
+        use: generateLoaders('sass')
+    }
+];

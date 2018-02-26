@@ -1,7 +1,7 @@
 export default class HelloWorld {
     constructor() {
         this.msg = 'Hello World！'
-        this.time = Date.parse(this.getTime());
+        this.envName = this.getEnvName();
     }
 
     $onInit() {
@@ -19,8 +19,9 @@ export default class HelloWorld {
     $postLink() {
     }
 
-    getTime() {
-        return new Date();
+    // 获取当前环境
+    getEnvName() {
+        return process.env.NAME;
     }
 
 }

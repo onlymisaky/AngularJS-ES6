@@ -6,9 +6,16 @@ const webpackConfig = require('./webpack.dev');
 const paths = require('./config/paths');
 
 const app = express();
+
+const hotClient = ['webpack-hot-middleware/client?noInfo=true&reload=true'];
+Object.keys(webpackConfig.entry).forEach(name => {
+    webpackConfig.entry[name] = hotClient.concat(webpackConfig.entry[name]);
+});
+
 const compiler = webpack(webpackConfig);
 
 // https://www.jianshu.com/p/469ad98ad1da
+// https://github.com/glenjamin/webpack-hot-middleware
 const devMiddleware = require('webpack-dev-middleware')(compiler, {
     stats: {
         colors: true,
@@ -40,4 +47,4 @@ devMiddleware.waitUntilValid(stats => {
 });
 
 // 监听端口
-app.listen(3000);
+app.listen(3000, () => { });

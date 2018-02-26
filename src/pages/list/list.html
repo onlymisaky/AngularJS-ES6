@@ -9,7 +9,8 @@
     </div>
 
     <div ng-if="$ctrl.list && $ctrl.list.length" ng-repeat="item in $ctrl.list track by $index">
-        {{ item }}
+        <h3>{{ ::item.title }}</h3>
+        <img ng-src="{{ ::item.images[0] }}">
     </div>
 
 </div>

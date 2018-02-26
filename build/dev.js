@@ -19,8 +19,11 @@ const compiler = webpack(webpackConfig);
 // 配置反向代理
 const proxyTable = {
     '/api': {
-        target: process.env.DOMAIN,
+        target: require('./config/env').DOMAIN,
         changeOrigin: true,
+        pathRewrite: {
+            '^/api': '/api'
+        }
     }
 };
 

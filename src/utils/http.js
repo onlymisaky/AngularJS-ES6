@@ -1,9 +1,10 @@
 import axios from 'axios';
 
-let prefix = '/api'
+let baseURL = process.env.DOMAIN;
+let prefix = 'api'
 
 const http = axios.create({
-    baseURL: process.env.DOMAIN + prefix,
+    baseURL: baseURL + prefix,
     timeout: 1000
 });
 

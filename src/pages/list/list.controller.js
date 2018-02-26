@@ -6,15 +6,14 @@ export default class List {
     }
 
     $onInit() {
-        this.getList();
+        this.getData();
     }
 
     getData() {
         return getList({}).then(response => {
             if (response.status === 200) {
-                this.list = response.data;
+                this.list = response.data.stories;
             }
         });
     }
-
 }

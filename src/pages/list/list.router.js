@@ -1,16 +1,10 @@
 let routes = [
     {
-        name: 'index',
-        url: '/index',
-        component: 'index'
-    },
-    {
-        name: 'test',
-        url: '/test',
-        template: `<div>test</div>`
+        name: 'list',
+        url: '/list',
+        component: 'list'
     }
 ];
-
 
 function router($stateProvider, ) {
     for (const route of routes) {

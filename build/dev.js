@@ -1,6 +1,7 @@
 const express = require('express');
 const webpack = require('webpack');
 const opn = require('opn');
+const proxyMiddleware = require('http-proxy-middleware');
 
 const webpackConfig = require('./webpack.dev');
 const paths = require('./config/paths');
@@ -13,6 +14,19 @@ Object.keys(webpackConfig.entry).forEach(name => {
 });
 
 const compiler = webpack(webpackConfig);
+
+// https://www.npmjs.com/package/http-proxy-middleware
+// 配置反向代理
+const proxyTable = {
+    '/api': {
+        target: process.env.DOMAIN,
+        changeOrigin: true,
+    }
+};
+
+Object.keys(proxyTable).forEach(contextOrUri => {
+    app.use(proxyMiddleware(contextOrUri, proxyTable[contextOrUri]));
+});
 
 // https://www.jianshu.com/p/469ad98ad1da
 // https://github.com/glenjamin/webpack-hot-middleware

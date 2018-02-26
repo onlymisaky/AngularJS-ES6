@@ -1,4 +1,5 @@
-const paths = require('./paths');
+const paths = require('./../config/paths');
+const styleRules = require('./style-rules');
 
 const scripts = {
     test: /\.js$/,
@@ -44,6 +45,6 @@ let rules = [
     imgs,
     fonts,
     medias
-].concat(require('./style-rules'));
+].concat(styleRules);
 
 module.exports = rules;

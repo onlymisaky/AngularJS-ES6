@@ -1,6 +1,6 @@
 const webpack = require('webpack');
 
-const rules = require('./config/rules');
+const rules = require('./rules');
 const paths = require('./config/paths');
 // const env = require('./config/env');
 

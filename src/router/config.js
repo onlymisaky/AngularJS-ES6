@@ -10,8 +10,11 @@ let isHtml5Mode = process.env.NODE_ENV === 'development';
 
 const config = ($locationProvider, $stateProvider, $urlRouterProvider) => {
     $locationProvider.hashPrefix('');
-    $locationProvider.html5Mode(isHtml5Mode);
-    $urlRouterProvider.otherwise('/404');
+    $locationProvider.html5Mode({
+        enabled: isHtml5Mode,
+        requireBase: false
+    });
+    $urlRouterProvider.otherwise('/index');
 
     for (let route of routes) {
         $stateProvider.state(route);

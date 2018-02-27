@@ -1,6 +1,9 @@
 function router($locationProvider, $stateProvider, $urlRouterProvider) {
+
+    let isHtml5Mode = process.env.NODE_ENV === 'development';
+
     $locationProvider.hashPrefix('');
-    $locationProvider.html5Mode(false);
+    $locationProvider.html5Mode(isHtml5Mode);
     $urlRouterProvider.otherwise('/index');
 
     $stateProvider.state({

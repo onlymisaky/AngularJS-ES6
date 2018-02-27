@@ -1,5 +1,5 @@
-import http from './../utils/http';
+import http from './../utils/http'; 
 
-export function getList(requet) {
-    return http.get('/4/news/latest', { params: requet });
+export function getList(request) {
+    return http.get('/4/news/latest', { params: request });
 }

@@ -1,8 +1,9 @@
 尝试用 `ES6/ES7` + `webpack` 为 `angularJS` 写一个 seed 。
 
 ```bash
+git clone https://github.com/onlymisaky/angularjs-es6-seed.git # 下载到本地
 npm run i # 安装依赖
-npm run dev # 开发模式
+npm run dev # 启动服务
 npm run build # 打包
 ```
 

@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-let baseURL = process.env.DOMAIN;
+import { isProduction } from './index';
+
+let baseURL = isProduction() ? process.env.DOMAIN : '';
 let prefix = 'api'
 
 const http = axios.create({

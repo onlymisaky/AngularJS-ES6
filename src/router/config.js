@@ -1,3 +1,5 @@
+import { isProduction } from './../utils';
+
 let routes = [
     {
         name: '404',
@@ -11,7 +13,7 @@ let isHtml5Mode = process.env.NODE_ENV === 'development';
 const config = ($locationProvider, $stateProvider, $urlRouterProvider) => {
     $locationProvider.hashPrefix('');
     $locationProvider.html5Mode({
-        enabled: isHtml5Mode,
+        enabled: isProduction(),
         requireBase: false
     });
     $urlRouterProvider.otherwise('/index');

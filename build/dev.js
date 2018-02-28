@@ -8,6 +8,11 @@ const paths = require('./config/paths');
 
 const app = express();
 
+const DOMAIN = require('./config/env').DOMAIN.trim();
+console.log(DOMAIN);
+
+process.env.APP_ENV = "development";
+
 const hotClient = ['webpack-hot-middleware/client?noInfo=true&reload=true'];
 Object.keys(webpackConfig.entry).forEach(name => {
     webpackConfig.entry[name] = hotClient.concat(webpackConfig.entry[name]);
@@ -19,7 +24,7 @@ const compiler = webpack(webpackConfig);
 // 配置反向代理
 const proxyTable = {
     '/api': {
-        target: require('./config/env').DOMAIN,
+        target: DOMAIN,
         changeOrigin: true,
         pathRewrite: {
             '^/api': '/api'

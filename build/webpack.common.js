@@ -22,7 +22,7 @@ module.exports = {
     plugins: [
         // 指定环境
         new webpack.DefinePlugin({
-            'process.env': env,
+            'process.env': JSON.stringify(env),
         })
     ]
 };

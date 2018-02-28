@@ -1,11 +1,17 @@
 尝试用 `ES6/ES7` + `webpack` 为 `angularJS` 写一个 seed 。
 
+## 用法
+
 ```bash
 git clone https://github.com/onlymisaky/angularjs-es6-seed.git # 下载到本地
-npm run i # 安装依赖
+npm i # 安装依赖
 npm run dev # 启动服务
 npm run build # 打包
 ```
+**提示**
+
+为了更快速的安装依赖，删除了 `package.json` 中的 `node-sass` ， 因为国内的网络环境很难安装 `node-sass` ， 而且 `node-sass` 好像不支持 `WinX64 Node8.x` 环境，如果你需要用到 `sass` ，并且知道如何如理上述的问题，你可以使用 `npm i node-sass --save-dev` 安装 `node-sass` ，这样就可以在项目中愉快的使用 `sass` 了(推荐安装 `4.7.2` 版本)。
+
 
 ## 开发日记
 

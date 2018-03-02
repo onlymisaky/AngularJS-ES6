@@ -10,4 +10,9 @@ const http = axios.create({
     timeout: 1000
 });
 
+http.interceptors.response.use(response => response, err => {
+    console.error(err);
+    return Promise.reject(err);
+});
+
 export default http;

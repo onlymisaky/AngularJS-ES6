@@ -22,7 +22,6 @@ npm run build # 打包
 ```
 angularjs-es6
 ├── build
-├── config
 ├── src
 │   ├── api
 │   ├── assets
@@ -33,7 +32,6 @@ angularjs-es6
 │   │   │   ├── hello-world.controller.js
 │   │   │   ├── hello-world.html
 │   │   │   └── hello-world.module.js
-│   │   └── components.module.js
 │   ├── directives
 │   ├── pages
 │   │   ├── index
@@ -45,7 +43,7 @@ angularjs-es6
 │   ├── router
 │   ├── utils
 │   ├── index.html
-│   └── index.js
+│   └── app.js
 ├── static
 └── package.json
 ```

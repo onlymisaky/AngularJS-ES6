@@ -33,7 +33,7 @@ angularjs-es6
 │   │   │   ├── hello-world.html
 │   │   │   └── hello-world.module.js
 │   ├── directives
-│   ├── pages
+│   ├── views
 │   │   ├── index
 │   │   │   ├── index.component.js
 │   │   │   ├── index.controller.js
@@ -264,7 +264,7 @@ export default angular
 
 [ui-router](https://ui-router.github.io/ng1/) 绝对是 angularJS 的标配了，它最大的优势就是解决了路由的嵌套。
 
- `ui-router` 还支持 [Route to component](https://ui-router.github.io/ng1/tutorial/hellosolarsystem) ，所以这里所有的页面都是组件，但是和前面所提到的组件不同的是，这些组件都是有状态的 `路由组件` ，因此为它们单独开了一个 `pages` 目录，这些组件的会在 `module` 文件中注册好路由，具体代码请参阅 [index页面](./src/pages/index/index.module.js) 。
+ `ui-router` 还支持 [Route to component](https://ui-router.github.io/ng1/tutorial/hellosolarsystem) ，所以这里所有的页面都是组件，但是和前面所提到的组件不同的是，这些组件都是有状态的 `路由组件` ，因此为它们单独开了一个 `views` 目录，这些组件的会在 `module` 文件中注册好路由，具体代码请参阅 [index页面](./src/views/index/index.module.js) 。
 
 ### 7、项目构建
 

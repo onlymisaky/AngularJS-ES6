@@ -8,7 +8,7 @@ import router from './index.router';
 import Index from './index.component';
 
 export default angular
-    .module('app.pages.index', [uiRouter, HelloWrold])
+    .module('app.views.index', [uiRouter, HelloWrold])
     .component('index', Index)
     .config(router)
     .name;

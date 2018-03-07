@@ -6,7 +6,7 @@ import router from './list.router';
 import List from './list.component';
 
 export default angular
-    .module('app.pages.list', [uiRouter])
+    .module('app.views.list', [uiRouter])
     .component('list', List)
     .config(router)
     .name;

@@ -4,7 +4,7 @@ const extract = require('extract-text-webpack-plugin').extract;
 
 // css-loader 配置, production 环境下需要压缩
 let cssLoader = {
-    loader: 'css-loader',
+    loader: 'css-loader?modules',
     options: {
         options: { minimize: !!isProduction }
     }
@@ -27,8 +27,6 @@ const generateLoaders = (loader, options) => {
             options: Object.assign({}, options) // 防止 undefined 键
         });
     }
-
-
 
     // production 环境下分离 css 和 js
     if (isProduction) {

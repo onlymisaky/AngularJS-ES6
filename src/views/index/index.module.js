@@ -1,7 +1,7 @@
 import angular from 'angular';
 import uiRouter from '@uirouter/angularjs';
 
-import HelloWrold from './../../components/hello-world/hello-world.module';
+import HelloWrold from '@/components/hello-world/hello-world.module';
 
 import router from './index.router';
 

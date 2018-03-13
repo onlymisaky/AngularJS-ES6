@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+const path = require('path');
 
 const rules = require('./rules');
 const paths = require('./config/paths');
@@ -17,6 +18,12 @@ module.exports = {
     entry,
     module: {
         rules
+    },
+    resolve: {
+        alias: {
+            // 简化路径， @/ 则表示 src/
+            '@': path.resolve('src')
+        }
     },
     // 插件的顺序会影响打包
     plugins: [

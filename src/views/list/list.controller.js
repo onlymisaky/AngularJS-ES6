@@ -1,4 +1,4 @@
-import { getList } from './../../api/zhuhu-daily';
+import { getList } from '@/api/zhuhu-daily';
 
 export default class List {
     constructor($scope) {

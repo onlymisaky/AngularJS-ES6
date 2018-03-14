@@ -4,9 +4,12 @@ const extract = require('extract-text-webpack-plugin').extract;
 
 // css-loader 配置, production 环境下需要压缩
 let cssLoader = {
-    loader: 'css-loader?modules',
+    loader: 'css-loader',
     options: {
-        options: { minimize: !!isProduction }
+        minimize: !!isProduction,
+        // 还没有想到好的 css Module 处理方式
+        modules: false,
+        localIdentName: '[path][name]__[local]--[hash:base64:5]',
     }
 };
 
@@ -50,7 +53,7 @@ module.exports = [
     },
     {
         test: /\.sass$/,
-        use: generateLoaders('sass',{ indentedSyntax: false })
+        use: generateLoaders('sass', { indentedSyntax: false })
     },
     {
         test: /\.scss$/,

@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const merge = require('webpack-merge');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
 
 const webpackCommon = require('./webpack.common');
 const paths = require('./config/paths');
@@ -18,8 +19,17 @@ module.exports = merge(webpackCommon, {
         // 提取公共模块
         // https://zhuanlan.zhihu.com/p/32361759 
         new webpack.HashedModuleIdsPlugin(),
-        // new webpack.optimize.CommonsChunkPlugin({ names: ['vendor', 'common'] }),
-        new webpack.optimize.CommonsChunkPlugin({ names: 'vendor' }),
+        //// new webpack.optimize.CommonsChunkPlugin({ names: ['vendor', 'common'] }),
+        new webpack.optimize.CommonsChunkPlugin({
+            names: 'vendor',
+            minChunks(module, count) {
+                return (
+                    module.resource
+                    && /\.js$/.test(module.resource)
+                    && module.resource.indexOf(path.resolve('.', 'node_modules')) === 0
+                )
+            }
+        }),
         new webpack.optimize.CommonsChunkPlugin({ name: 'manifest', chunks: ['vendor'] }),
 
         // 提取css

@@ -8,6 +8,7 @@ npm i # 安装依赖
 npm run dev # 启动服务
 npm run build # 打包
 ```
+
 **提示**
 
 为了更快速的安装依赖，删除了 `package.json` 中的 `node-sass` ， 因为国内的网络环境很难安装 `node-sass` ， 而且 `node-sass` 好像不支持 `WinX64 Node8.x` 环境，如果你需要用到 `sass` ，并且知道如何如理上述的问题，你可以使用 `npm i node-sass --save-dev` 安装 `node-sass` ，这样就可以在项目中愉快的使用 `sass` 了(推荐安装 `4.7.2` 版本)。
@@ -42,10 +43,13 @@ angularjs-es6
 │   │   │   └── index.module.js
 │   ├── router
 │   ├── utils
-│   ├── index.html
-│   └── app.js
+│   ├── app.js
+│   └── index.html
 ├── static
-└── package.json
+├── .babelrc
+├── jsconfig.json
+├── package.json
+└── README.md
 ```
 
 这个结构是在综合了多个项目和个人的经验构建出来的，现在你可能不是很明白为什么要这样设计，不要着急，你只要先总体的看一下它的结构，对它有一个大概的感知即可，继续往下读，你会明白为什么这样设计。
@@ -58,7 +62,7 @@ angularjs-es6
 
 `filter` 是极为消耗性能的，在 `$digest` 过程中，filter会执行很多次，至少两次，在很多关于angularJS的讨论中，都不推荐使用它。
 
-其实 `filter` 的作用就是处理数据，当你你需要处理数据的时候，你可以写一些专门处理数据的函数，然后在控制器中调用它，而视图只负责显示数据。
+其实 `filter` 的作用就是处理数据，当你需要处理数据的时候，你可以写一些专门处理数据的函数，然后在控制器中调用它，而视图只负责显示数据。
 
 所以切记不要在视图中使用 `filter` 。
 
@@ -117,7 +121,7 @@ A.$inject = ['$http'];
 
 这一部分是最重要的，也是我调研时间最久的。
 
-我先考虑到的只有 `component` ，但是随着思路的延伸不得不思考一下 `modeule` 。
+我先考虑到的只有 `component` ，但是随着思路的延伸不得不思考一下 `module` 。
 
 先看一下我最初的写法：
 
@@ -150,7 +154,7 @@ export default {
 1. a 组件只是一个声明，不是 angularJS 的 module ，无法注册组件
 2. 在创建 a 组件的时候，并不知道他要依赖于其它的哪些组件
 
-出现这样棘手的问题，要完全归咎于 angularJS 蹩脚的模块机制，因为 angularJS 的 `module` 和 ES6 的` module` 是不一样的，并且脱离了文件系统，不能动态注入，它也不能为我们提供具体的依赖关系。
+出现这样棘手的问题，要完全归咎于 angularJS 蹩脚的模块机制，因为 angularJS 的 `module` 和 ES6 的 `module` 是不一样的，并且脱离了文件系统，~~不能动态注入，~~([oclazyload](https://github.com/ocombe/ocLazyLoad)通过 `hack` 的方式实现了动态注入)， 它也不能为我们提供具体的依赖关系。
 
 ---
 
@@ -166,7 +170,7 @@ export default angular.module('app', []);
 // a/index.js
 import app from '../../app';
 
-import './../b';
+import './../b'; // b.js 中有了注册 b 组件的代码，此处 import 是为了执行注册的代码
 
 import template from './a.html';
 import controller from './a.controller';
@@ -198,6 +202,7 @@ export default angular.module('app', [uiRouter, uiBootstrap]);
 ```javascript
 // a/index.js
 import b './../b';
+import c './../c';
 
 import template from './a.html';
 import controller from './a.controller';
@@ -205,15 +210,15 @@ import controller from './a.controller';
 export default {
     controller,
     template,
-    components: { b }
+    components: { b, c }
 };
 ```
 
-在创建 `a组件` 的时候通过对 `a.components` 判断，来为其创建好所依赖的组件，这一步操作应该是在路由中来完成的，因为路由是这个组件的最终呈现载体，除了路由不会在出现对它的更深层次嵌套了。到这里你可能会和我一样想到另外一个问题：嵌套过多会不会影响性能？答案是肯定的，因为你要循环查找 `a.components.components.components` ，然后在循环创建查找到组件，其实一般情况不会消耗太多型性能，但是这种做法破坏了 angularJS 的书写形式，不应该被提倡，如果有一天 angularJS 的 api 更新了（目前来看发生的可能性为0），恰好影响到了我们之前的写法，这样升级的成本就会变得很高。
+在创建 `a组件` 的时候通过对 `a.components` 分析，先穿创建好 `b组件` 和 `c组件` ，也许 `b组件` 自身也用到了 `c组件` 同时还用到了 `d组件` 。 到这里你可能也发现一些问题：比如会出现重复创建组件的情况，组件依赖来过深如何处理，所以这种方式也不好。
 
 ---
 
-上面的两种做法都有一个相同点，那就是在整个系统中，我们指定义了一个 `module` ，而在我所有调研的项目中，几乎都是清一色的使用了多 `module` 的方式，既一个组件就是一个 `module` ,这种做法优点和缺点都和明显。
+上面的两种做法都有一个相同点，那就是在整个系统中，我们指定义了一个 `module` ，而在我所有调研的项目中，几乎都是清一色的使用了多 `module` 的方式，既一个组件就是一个 `module` ，同时 `module` 也是最小的单位，这个 `Angualr` 是样的，这种做法优点和缺点都和明显。
 
 优点：
 
@@ -270,14 +275,12 @@ export default angular
 
 项目构建当然使用标题中的 [webpack](https://webpack.js.org/) ，我觉的 webpack 配置是一门玄学，所以我顺便又把它再学了一遍，希望早日出现一个替代它的工具:smirk::smirk::smirk:。
 
-
 ## 参考 
 - [AngularJS styleguide (ES2015)](https://github.com/toddmotto/angularjs-styleguide)
 - [Angular 1.x和ES6的结合](https://github.com/xufei/blog/issues/29)
 - [Angular1.x + ES6 开发风格指南](https://github.com/kuitos/kuitos.github.io/issues/34)
 - [Angular沉思录（三）Angular中的模块机制](https://github.com/xufei/blog/issues/17)
 - [基于ui-router的非侵入式angular按需加载方案](https://github.com/kuitos/kuitos.github.io/issues/31)
-
 
 ## 其它
 [angular-1-5-components-app](https://github.com/toddmotto/angular-1-5-components-app)

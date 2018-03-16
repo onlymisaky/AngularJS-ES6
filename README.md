@@ -275,7 +275,15 @@ export default angular
 
 项目构建当然使用标题中的 [webpack](https://webpack.js.org/) ，我觉的 webpack 配置是一门玄学，所以我顺便又把它再学了一遍，后面我也会写一个易懂的 `webpack` 上手教程。希望早日出现一个替代它的工具:smirk::smirk::smirk:。
 
-### 8、未解决的问题
+### 8、按需加载
+
+一般情况下，我是不推荐按需加载的，因为处理不当的话，会出现一些奇怪的状况。况且 `webpack` 打包压缩后，服务器再开启 `gzip` 压缩，浏览器所加载的文件体积还是在可接受范围内的。
+
+当然，如果你确实想按需加载，那么可以通过 `webpack` 的 `code split` 配合 [oclazyload](git://github.com/ocombe/ocLazyLoad.git) 来实现。这里提醒一下，最安全的方式是以一级路由为模块来按需加载，这样可以最大程度的保证不出问题。
+
+我在 [src/views/index/index.router.js](./src/views/index/index.router.js) 中示范了如何按需加载一个组件，这里我用的是 `import()` ，你也可以用 `require.ensure` ，但是我在反复的打包对比中发现 `import()` 可以将体积控制到最小。
+
+### 9、未解决的问题
 
 #### css Module
 其实我已经有相应的解决方案了，我们可以在控制器中引入样式，然后将样式挂在 `vm` 上，然后在 `view` 中使用，具体的写法如下
@@ -297,9 +305,6 @@ class A {
 }
 ```
 在我看来这种实现方式是在是太惨不忍睹了。
-
-### 按需加载
-正在研究
 
 ## 参考 
 - [AngularJS styleguide (ES2015)](https://github.com/toddmotto/angularjs-styleguide)

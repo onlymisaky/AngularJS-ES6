@@ -273,7 +273,33 @@ export default angular
 
 ### 7、项目构建
 
-项目构建当然使用标题中的 [webpack](https://webpack.js.org/) ，我觉的 webpack 配置是一门玄学，所以我顺便又把它再学了一遍，希望早日出现一个替代它的工具:smirk::smirk::smirk:。
+项目构建当然使用标题中的 [webpack](https://webpack.js.org/) ，我觉的 webpack 配置是一门玄学，所以我顺便又把它再学了一遍，后面我也会写一个易懂的 `webpack` 上手教程。希望早日出现一个替代它的工具:smirk::smirk::smirk:。
+
+### 8、未解决的问题
+
+#### css Module
+其实我已经有相应的解决方案了，我们可以在控制器中引入样式，然后将样式挂在 `vm` 上，然后在 `view` 中使用，具体的写法如下
+```javascript
+// a.controller.js
+import styles from './a.css';
+class A {
+    constructor() {
+        this.styles = styles;
+    }
+}
+```
+```html
+<div class="{{ ::$ctrl.styles['text-center'] }}"></div>
+```
+```css
+.text-center {
+    text-align: center;
+}
+```
+在我看来这种实现方式是在是太惨不忍睹了。
+
+### 按需加载
+正在研究
 
 ## 参考 
 - [AngularJS styleguide (ES2015)](https://github.com/toddmotto/angularjs-styleguide)

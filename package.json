@@ -16,7 +16,8 @@
   "dependencies": {
     "@uirouter/angularjs": "^1.0.15",
     "angular": "^1.6.9",
-    "axios": "^0.18.0"
+    "axios": "^0.18.0",
+    "oclazyload": "^1.1.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",

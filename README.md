@@ -3,28 +3,29 @@
 ## 用法
 
 ```bash
-# 下载到本地
-git clone https://github.com/onlymisaky/angularjs-es6-seed.git 
+git clone https://github.com/onlymisaky/angularjs-es6-seed.git # 下载到本地
 
-# 如果你已经全局安装 cnpm ，跳过此步
-# 如果没有，全局安装一下 cnpm ，可以为你节省很多时间，减少很多不必要的烦恼，信我！
-npm i -g cnpm --registry=https://registry.npm.taobao.org 
+cd angularjs-es6-seed # 切换到项目目录
 
-# 切换到项目目录
-cd angularjs-es6-seed 
-
-# 用 cnpm 安装依赖
-cnpm i 
+npm i --registry=http://r.cnpmjs.org/ # 安装依赖，这一步很慢
 
 # 如果的开发环境是 Windows 64-bit with Node.js 8.x ，执行一下下面的命令
 npm rebuild node-sass
 
-# 启动服务
-npm run dev
+npm run dev # 启动服务
 
-# or 打包
-npm run build
+npm run build # or 打包
 ```
+
+**提示**
+
+不建议用 cnpm 安装依赖，因为 cnpm 安装后，用 vscode 打开项目会导致 cpu 狂飙至 100% ，详情可以查看这两个 issues : 
+
+[When using cnpm/pnpm, rg uses lots of CPU #35659](https://github.com/Microsoft/vscode/issues/35659) 
+
+[Use search.followSymlinks for all searches #37000](https://github.com/Microsoft/vscode/issues/37000)
+
+也不推荐用 taobao 的源安装，他的速度还没 cnpm 的快。 最好的方式就是 `npm i --registry=http://r.cnpmjs.org/`
 
 ## 开发日记
 

@@ -7,10 +7,9 @@ git clone https://github.com/onlymisaky/angularjs-es6-seed.git # 下载到本地
 
 cd angularjs-es6-seed # 切换到项目目录
 
-npm i --registry=http://r.cnpmjs.org/ # 安装依赖，这一步很慢
+npm i --registry=http://r.cnpmjs.org/ # 安装依赖，这一步很慢，耐心等待即可
 
-# 如果的开发环境是 Windows 64-bit with Node.js 8.x ，执行一下下面的命令
-npm rebuild node-sass
+npm rebuild node-sass # 根据当前环境重新build node-sass (如果是 X64平台 + Nodejs 8.X 版本，需要执行此命令)
 
 npm run dev # 启动服务
 
@@ -19,7 +18,7 @@ npm run build # or 打包
 
 **提示**
 
-不建议用 cnpm 安装依赖，因为 cnpm 安装后，用 vscode 打开项目会导致 cpu 狂飙至 100% ，详情可以查看这两个 issues : 
+不建议用 cnpm 安装依赖，因为用 cnpm 安装依赖后，再用 vscode 打开项目会导致 cpu 狂飙至 100% ，这个锅应该是 cnpm 的。 详情可以查看这两个 issues : 
 
 [When using cnpm/pnpm, rg uses lots of CPU #35659](https://github.com/Microsoft/vscode/issues/35659) 
 

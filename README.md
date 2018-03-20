@@ -13,7 +13,7 @@ npm rebuild node-sass # 根据当前环境重新build node-sass (如果是 X64�
 
 npm run dev # 启动服务
 
-npm run build # or 打包
+npm run build # 打包
 ```
 
 **提示**

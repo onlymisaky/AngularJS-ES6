@@ -2,17 +2,30 @@
 
 ## 用法
 
+
 ```bash
-git clone https://github.com/onlymisaky/angularjs-es6-seed.git # 下载到本地
-npm i # 安装依赖
-npm run dev # 启动服务
-npm run build # 打包
+# 下载到本地
+git clone https://github.com/onlymisaky/angularjs-es6-seed.git 
+
+# 如果你已经全局安装 cnpm ，跳过此步
+# 如果没有，全局安装一下 cnpm ，可以为你节省很多时间，减少很多不必要的烦恼，信我！
+npm i -g cnpm --registry=https://registry.npm.taobao.org 
+
+# 切换到项目目录
+cd angularjs-es6-seed 
+
+# 用 cnpm 安装依赖
+cnpm i 
+
+# 如果的开发环境是 Windows 64-bit with Node.js 8.x ，执行一下下面的命令
+npm rebuild node-sass
+
+# 启动服务
+npm run dev
+
+# or 打包
+npm run build
 ```
-
-**提示**
-
-为了更快速的安装依赖，删除了 `package.json` 中的 `node-sass` ， 因为国内的网络环境很难安装 `node-sass` ， 而且 `node-sass` 好像不支持 `WinX64 Node8.x` 环境，如果你需要用到 `sass` ，并且知道如何如理上述的问题，你可以使用 `npm i node-sass --save-dev` 安装 `node-sass` ，这样就可以在项目中愉快的使用 `sass` 了(推荐安装 `4.7.2` 版本)。
-
 
 ## 开发日记
 

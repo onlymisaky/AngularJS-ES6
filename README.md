@@ -1,7 +1,6 @@
-尝试用 `ES6/ES7` + `webpack` 为 `angularJS` 写一个 seed 。
+一个用 `angularJS` + `ES6/ES7` + `webpack` 构建的种子项目。
 
 ## 用法
-
 
 ```bash
 # 下载到本地

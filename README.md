@@ -2,19 +2,33 @@
 
 ## 用法 
 
+1. 下载到本地
 ```bash
-git clone https://github.com/onlymisaky/angularjs-es6-seed.git # 下载到本地
-
-cd angularjs-es6-seed # 切换到项目目录
-
-npm i --registry=http://r.cnpmjs.org/ # 安装依赖，这一步很慢，耐心等待即可，如长时间没有安装好，请尝试用 cnpm 安装
-
-npm run dev # 启动服务
-
-npm run build # 打包
-
-npm rebuild node-sass # 如果在调试或者打包过程中提示 node-sass 错误，请使用此命令重新 build node-sass ，build完成后再次使用上面的命令即可
+git clone https://github.com/onlymisaky/angularjs-es6-seed.git
 ```
+
+2. 切换到项目目录
+```bash
+cd angularjs-es6-seed
+```
+
+3. 安装依赖，这一步很慢，耐心等待即可，如长时间没有安装好，请尝试用 [cnpm](https://npm.taobao.org/) 安装
+```bash
+npm i --registry=http://r.cnpmjs.org/
+```
+4. 启动服务
+```bash
+npm run dev
+```
+5. 打包
+```bash
+npm run build
+```
+6. 如果在执行 **第4** 或 **第5** 步的过程中提示 *node-sass* 错误，请使用下面的命令重新 build node-sass ，build 完成后再次使用   **第4** 或 **第5** 的命令即可
+```bash
+npm rebuild node-sass
+```
+
 
 **提示**
 

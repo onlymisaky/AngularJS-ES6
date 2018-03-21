@@ -30,7 +30,7 @@ npm rebuild node-sass # 如果在调试或者打包过程中提示 node-sass 错
 
 第二种方式 : 在 cnpm 命令后面添加参数，即使用 `cnpm i --by=npm` 来安装。
 
-另外也不推荐用 taobao 的源安(https://registry.npm.taobao.org)装，他的速度还没 cnpm 的快。
+另外也不推荐用 taobao 的源安装，他的速度还没 cnpm 的快。
 
 ## 开发日记
 

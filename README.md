@@ -315,6 +315,8 @@ export default angular
 
 我在 [src/views/index/index.router.js](./src/views/index/index.router.js) 中示范了如何按需加载一个组件，这里我用的是 `import()` ，你也可以用 `require.ensure` ，但是我在反复的打包对比中发现 `import()` 可以将体积控制到最小。
 
+当使用这种方法的时候，无法实现 css 和 js 分离。 // todo
+
 ### 9、未解决的问题
 
 #### css Module

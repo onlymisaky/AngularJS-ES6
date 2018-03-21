@@ -1,30 +1,36 @@
 一个用 `angularJS` + `ES6/ES7` + `webpack` 构建的种子项目。
 
-## 用法
+## 用法 
 
 ```bash
 git clone https://github.com/onlymisaky/angularjs-es6-seed.git # 下载到本地
 
 cd angularjs-es6-seed # 切换到项目目录
 
-npm i --registry=http://r.cnpmjs.org/ # 安装依赖，这一步很慢，耐心等待即可
-
-npm rebuild node-sass # 根据当前环境重新build node-sass (如果是 X64平台 + Nodejs 8.X 版本，需要执行此命令)
+npm i --registry=http://r.cnpmjs.org/ # 安装依赖，这一步很慢，耐心等待即可，如长时间没有安装好，请尝试用 cnpm 安装
 
 npm run dev # 启动服务
 
 npm run build # 打包
+
+npm rebuild node-sass # 如果在调试或者打包过程中提示 node-sass 错误，请使用此命令重新 build node-sass ，build完成后再次使用上面的命令即可
 ```
 
 **提示**
 
-不建议用 cnpm 安装依赖，因为用 cnpm 安装依赖后，再用 vscode 打开项目会导致 cpu 狂飙至 100% ，这个锅应该是 cnpm 的。 详情可以查看这两个 issues : 
+原则上，不建议用 [cnpm](https://npm.taobao.org/) 安装依赖，因为用 cnpm 安装依赖后，再用 vscode 打开项目会导致 cpu 狂飙至 100% ，这个锅应该是 cnpm 的。 详情可以查看这两个 issues : 
 
 [When using cnpm/pnpm, rg uses lots of CPU #35659](https://github.com/Microsoft/vscode/issues/35659) 
 
 [Use search.followSymlinks for all searches #37000](https://github.com/Microsoft/vscode/issues/37000)
 
-也不推荐用 taobao 的源安装，他的速度还没 cnpm 的快。 最好的方式就是 `npm i --registry=http://r.cnpmjs.org/`
+如果由于网络问题，不得不使用 cnpm ，恰巧你的开发工具可是 vscode ,那么请用下面两种方式解决：
+
+第一种方式 : 在 `cnpm i` 完成后，打开 vscode 将**设置**中的 **search.followSymlinks** 修改为 **false** 。
+
+第二种方式 : 在 cnpm 命令后面添加参数，即使用 `cnpm i --by=npm` 来安装。
+
+另外也不推荐用 taobao 的源安(https://registry.npm.taobao.org)装，他的速度还没 cnpm 的快。
 
 ## 开发日记
 

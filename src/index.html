@@ -1,28 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang=en>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!-- https://code.angularjs.org/1.6.9/docs/error/$location/nobase -->
-    <!-- 支持 HTML5 history API -->
+    <meta charset=UTF-8>
+    <meta name=viewport content="width=device-width,initial-scale=1">
+    <meta http-equiv=X-UA-Compatible content="ie=edge">
     <base href="">
     <title>angularjs-es6-seed</title>
-
-    <!--[if IE]>
-        <script src="/static/vendor/es5-shim.min.js"></script>
-        <script src="/static/vendor/es5-sham.min.js"></script>
-        <script src="/static/vendor/json3.min.js"></script>
-        <script src="/static/vendor/es6-shim.min.js"></script>
-        <script src="/static/vendor/es6-sham.min.js"></script>
-        <script src="/static/vendor/es7-shim.min.js"></script>
+    <!--[if lte IE 9]>
+        <script src="/static/vendor/es5-shim/4.5.10/es5-shim.min.js"></script>
+        <script src="/static/vendor/es5-shim/4.5.10/es5-sham.min.js"></script>
+        <script src="/static/vendor/json3/3.3.2/json3.min.js"></script>
+        <script src="/static/vendor/es6-shim/0.35.1/es6-shim.min.js"></script>
+        <script src="/static/vendor/es6-shim/0.35.1/es6-sham.min.js"></script>
+        <script src="/static/vendor/es7-shim/6.0.0/es7-shim.min.js"></script>
+        <script src="/static/vendor/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="/static/vendor/respond.js/1.4.2/respond.js"></script>
     <![endif]-->
-
+    <script>(function (window) {
+            var UA = window.navigator.userAgent;
+            var isIE = !!window.ActiveXObject || "ActiveXObject" in window;
+            var isNewIE = isIE && (UA.indexOf('MSIE 10') > 1 || UA.indexOf('MSIE') < 1);
+            if (isNewIE) {
+                var srcList = [
+                    '/static/vendor/es6-shim/0.35.1/es6-shim.min.js',
+                    '/static/vendor/es6-shim/0.35.1/es6-sham.js',
+                    'static/vendor/es7-shim/6.0.0/es7-shim.min.js'
+                ];
+                srcList.forEach(function (src) {
+                    var script = window.document.createElement('script');
+                    script.src = src;
+                    window.document.head.appendChild(script);
+                });
+            }
+        })(window);</script>
 </head>
 
 <body>
     <ui-view></ui-view>
+    <script type=text/javascript src=js/manifest.448dc48637e881e9e680.js></script>
+    <script type=text/javascript src=js/vendor.f347cbfe53c9d32dc7ab.js></script>
+    <script type=text/javascript src=js/app.5c8e66189d0a6e42878e.js></script>
 </body>
 
 </html>

@@ -40,9 +40,12 @@ module.exports = merge(webpackCommon, {
             template: paths.src + '/index.html',
             inject: 'body',
             minify: {
-                removeComments: true,
                 collapseWhitespace: true,
-                removeAttributeQuotes: true
+                minifyCSS: true,
+                minifyJS: true,
+                removeAttributeQuotes: true,
+                removeComments: true,
+                removeTagWhitespace: true,
             }
         }),
 

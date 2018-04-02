@@ -1,3 +1,4 @@
+import './index.scss';
 import controller from './index.controller';
 import template from './index.html';
 

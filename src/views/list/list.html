@@ -1,16 +1,18 @@
-<div>
-    <a ui-sref="{{ ::$ctrl.listState}}">list</a>
-    <div ng-if="!$ctrl.list">
+<div id="view-list">
+    <div ng-if="!$ctrl.newsList" class="text-center p-20">
         正在加载
     </div>
 
-    <div ng-if="$ctrl.list && !$ctrl.list.length">
+    <div ng-if="$ctrl.newsList && !$ctrl.newsList.length" class="text-center p-20">
         没有数据
     </div>
 
-    <div ng-if="$ctrl.list && $ctrl.list.length" ng-repeat="item in $ctrl.list track by $index">
-        <h3>{{ ::item.title }}</h3>
-        <img ng-src="{{ ::item.images[0] }}">
+    <div ng-if="$ctrl.newsList && $ctrl.newsList.length" class="list">
+        <zhihu-news-box
+            class="m-20"
+            ng-repeat="news in $ctrl.newsList track by $index"
+            news="news">
+        </zhihu-news-box>
     </div>
 
 </div>

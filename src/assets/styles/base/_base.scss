@@ -1,0 +1,72 @@
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+.clearfix::after {
+    content: "";
+    display: block;
+    visibility: hidden;
+    height: 0;
+    clear: both;
+}
+
+.clearfix {
+    zoom: 1;
+}
+
+.text-center {
+    text-align: center;
+}
+
+@each $distance in $distance-list {
+    .m-#{$distance} {
+        margin: $distance + px !important;
+    }
+    .m-y-#{$distance} {
+        margin-top: $distance + px !important;
+        margin-bottom: $distance + px !important;
+    }
+    .m-x-#{$distance} {
+        margin-left: $distance + px !important;
+        margin-right: $distance + px !important;
+    }
+    .m-t-#{$distance} {
+        margin-top: $distance + px !important;
+    }
+    .m-r-#{$distance} {
+        margin-right: $distance + px !important;
+    }
+    .m-b-#{$distance} {
+        margin-bottom: $distance + px !important;
+    }
+    .m-l-#{$distance} {
+        margin-left: $distance + px !important;
+    }
+    .p-#{$distance} {
+        padding: $distance + px !important;
+    }
+    .p-y-#{$distance} {
+        padding-top: $distance + px !important;
+        padding-bottom: $distance + px !important;
+    }
+    .p-x-#{$distance} {
+        padding-left: $distance + px !important;
+        padding-right: $distance + px !important;
+    }
+    .p-t-#{$distance} {
+        padding-top: $distance + px !important;
+    }
+    .p-r-#{$distance} {
+        padding-right: $distance + px !important;
+    }
+    .p-b-#{$distance} {
+        padding-bottom: $distance + px !important;
+    }
+    .p-l-#{$distance} {
+        padding-left: $distance + px !important;
+    }
+}

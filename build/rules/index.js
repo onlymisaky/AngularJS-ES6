@@ -17,7 +17,7 @@ const imgs = {
     loader: 'url-loader',
     options: {
         limit: 10000, // 10KB 以下使用 base64
-        name: 'img/[name].[hash:7].[ext]'
+        name: 'images/[name].[hash:7].[ext]'
     }
 };
 

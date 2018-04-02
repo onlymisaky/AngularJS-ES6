@@ -313,7 +313,7 @@ export default angular
 
 当然，如果你确实想按需加载，那么可以通过 `webpack` 的 `code split` 配合 [oclazyload](git://github.com/ocombe/ocLazyLoad.git) 来实现。这里提醒一下，最安全的方式是以一级路由为模块来按需加载，这样可以最大程度的保证不出问题。
 
-我在 [src/views/index/index.router.js](./src/views/index/index.router.js) 中示范了如何按需加载一个组件，这里我用的是 `import()` ，你也可以用 `require.ensure` ，但是我在反复的打包对比中发现 `import()` 可以将体积控制到最小。
+我在 [src/views/list/list.router.js](./src/views/list/list.router.js) 中示范了如何按需加载一个组件，这里我用的是 `import()` ，你也可以用 `require.ensure` ，但是我在反复的打包对比中发现 `import()` 可以将体积控制到最小。
 
 当使用这种方法的时候，无法实现 css 和 js 分离。 // todo
 

@@ -8,6 +8,7 @@ let cssLoader = {
     options: {
         minimize: !!isProduction,
         // 还没有想到好的 css Module 处理方式
+        // 暂时用 id选择器 方式解决
         modules: false,
         localIdentName: '[path][name]__[local]--[hash:base64:5]',
     }

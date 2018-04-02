@@ -1,6 +1,6 @@
 export default class HelloWorld {
     constructor() {
-        this.msg = 'Hello World！'
+        this.msg = 'AngularJS'
         this.envName = this.getEnvName();
     }
 

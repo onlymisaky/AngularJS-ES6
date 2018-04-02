@@ -1,6 +1,6 @@
 <!-- angularJS 允许组件内存在多个根标签，但是最好不要这么写 -->
-<div>
-    <h1>{{ $ctrl.msg }}</h1>
-    <div>{{ $ctrl.envName }}</div>
-    <input type="text" focus>
+<div id="component-hello-world">
+    <img src="./../../assets/images/AngularJS-large.png">
+    <h1>Hello {{ $ctrl.msg }}!</h1>
+    <input type="text" ng-model="$ctrl.msg" focus>
 </div>

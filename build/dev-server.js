@@ -1,3 +1,5 @@
+const port = Number(process.argv[2]) || 3000;
+
 const express = require('express');
 const webpack = require('webpack');
 const opn = require('opn');
@@ -60,8 +62,8 @@ app.use(hotMiddleware);
 
 // 自动打开浏览器
 devMiddleware.waitUntilValid(stats => {
-    opn('http://localhost:' + 3000);
+    opn('http://localhost:' + port);
 });
 
 // 监听端口
-app.listen(3000, () => { });
+app.listen(port, () => { });

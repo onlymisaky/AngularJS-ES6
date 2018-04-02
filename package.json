@@ -10,7 +10,7 @@
     "webpack"
   ],
   "scripts": {
-    "dev": "cross-env APP_ENV=development node build/dev.js",
+    "dev": "cross-env APP_ENV=development node build/dev-server.js",
     "build": "cross-env APP_ENV=production node build/build.js"
   },
   "dependencies": {
@@ -45,6 +45,7 @@
     "rimraf": "^2.6.2",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.20.1",
+    "url-loader": "^1.0.1",
     "webpack": "^3.11.0",
     "webpack-dev-middleware": "^2.0.6",
     "webpack-hot-middleware": "^2.21.0",

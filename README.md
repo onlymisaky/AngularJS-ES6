@@ -338,7 +338,7 @@ class A {
     text-align: center;
 }
 ```
-在我看来这种实现方式是在是太惨不忍睹了。
+在我看来这种实现方式是在是太惨不忍睹了，所以暂时用 **id选择器** 方式解决。
 
 ## 参考 
 - [AngularJS styleguide (ES2015)](https://github.com/toddmotto/angularjs-styleguide)

@@ -15,6 +15,7 @@ export default class List {
             const idList = [];
             const list = [];
             if (data) {
+                // 此处所做的数据处理是为了尽量获取高清的图片
                 [...data.top_stories, ...data.stories].forEach(v => {
                     if (!idList.includes(v.id)) {
                         idList.push(v.id);

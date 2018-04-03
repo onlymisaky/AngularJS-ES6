@@ -14,7 +14,6 @@ if (!filename.trim() || Number(filename)) {
     process.exit();
 }
 
-
 filename = filename.replace(path.dirname(filename) + '/', '');
 const fileName = utils.tocamelCase(filename);
 const FileName = utils.firstUpperCase(fileName);
@@ -90,7 +89,7 @@ Promise.all(psRead).then(templateList => {
     utils.mkdir(filePath);
 
     psWrite.forEach((v, i) => {
-        console.log(`${space}Being write : ${v[0]}`);
+        console.log(`${space}Create : ${v[0]}`);
         psWrite[i] = utils.writeFilePromise(...v);
     });
     return Promise.all(psWrite);

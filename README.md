@@ -317,7 +317,20 @@ export default angular
 
 当使用这种方法的时候，无法实现 css 和 js 分离。 // todo
 
-### 9、未解决的问题
+### 9、生成脚本
+
+当我把这套方案用于实际开发中时，我发现了一个比较麻烦的事情，每当我想创建一个 `module` 的时候，我都要创建好多个文件，这些繁琐的事情应该交给工具完成，所以我又在项目中添加了一些快速生成 `module` 的脚本命令。用法和 `@angular/cli` 类似。
+
+```bash
+npm run new-directive foo	# 创建一个 foo 指令
+npm run new-component foo	# 创建一个 foo 组件
+npm run new-component foo/bar	# 在 components/foo 文件夹下创建一个 bar 组件
+npm run new-view foo	# 创建一个 foo 视图
+npm run new-view foo/bar	# 在 vies/foo 文件夹下创建一个 bar 视图
+npm run dev 5000	# 在本地的 5000 端口启动服务
+```
+
+### 10、未解决的问题
 
 #### css Module
 其实我已经有相应的解决方案了，我们可以在控制器中引入样式，然后将样式挂在 `vm` 上，然后在 `view` 中使用，具体的写法如下

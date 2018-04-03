@@ -11,7 +11,10 @@
   ],
   "scripts": {
     "dev": "cross-env APP_ENV=development node build/dev-server.js",
-    "build": "cross-env APP_ENV=production node build/build.js"
+    "build": "cross-env APP_ENV=production node build/build.js",
+    "new-component": "node generator component",
+    "new-view": "node generator view",
+    "new-directive": "node generator directive"    
   },
   "dependencies": {
     "@uirouter/angularjs": "^1.0.15",

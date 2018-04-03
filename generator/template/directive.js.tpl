@@ -1,12 +1,12 @@
 import angular from 'angular';
 
 export default angular
-    .module('app.directives.focus', [])
-    .directive('focus', function () {
+    .module('app.directives.<% filename %>', [])
+    .directive('<% fileName %>', function () {
         return {
             restrict: 'A',
             link($scope, $ele, $attr) {
-                $ele[0].focus();
+
             }
         }
     })

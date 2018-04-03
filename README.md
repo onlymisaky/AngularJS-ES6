@@ -1,4 +1,15 @@
-一个用 `angularJS` + `ES6/ES7` + `webpack` 构建的种子项目。
+一个用 `AngularJS` + `ES6/ES7` + `webpack` 构建的种子项目。
+
+该项目只有两个页面，目的是为了展示如何使用主流的方式开发 `AngularJS` 应用。
+
+<a href="http://onlymisaky.gitee.io/angularjs-es6"  target="_blank">在线地址</a>
+
+## 截图
+
+![首页](https://s1.ax1x.com/2018/04/03/CpmYex.png)
+
+![列表页](https://s1.ax1x.com/2018/04/03/Cpmtw6.png)
+
 
 ## 用法 
 
@@ -107,7 +118,7 @@ angularjs-es6
 4. constant
 5. value
 
-首先要了解， `service` 、 `factory` 、 `value` 都是 `provider` 二次封装而来，功能相似只是写法不同，另外 `provider` 可以在 `config` 中注入， `constant` 则是 angularJS 为方便我们定义常量而设计，在没有模块化的环境下确实很好用，但是在 ES6 中，我们可以利用 `const` 关键字配合模块化轻松实现它。
+首先要了解， `service` 、 `factory` 、 `value` 都是 `provider` 二次封装而来，功能相似只是写法不同，另外 `provider` 可以在 `config` 中注入， `constant` 则是 AngularJS 为方便我们定义常量而设计，在没有模块化的环境下确实很好用，但是在 ES6 中，我们可以利用 `const` 关键字配合模块化轻松实现它。
 
 在开发中,自定义服务的作用主要有两点:
 1. 工具方法
@@ -127,7 +138,7 @@ angularjs-es6
 
 ### 3、控制器的写法
 
-angularJS 1.2 版本开始提供了一个 `controllerAs` 语法，让 `controller` 成为了一个纯净的 `ViewModel` ，而且 angularJS 是通过 `new` 关键字把它当成构造函数来调用的，所以我们可以用 ES6 提供的语法糖 `class` 来创建控制器。
+AngularJS 1.2 版本开始提供了一个 `controllerAs` 语法，让 `controller` 成为了一个纯净的 `ViewModel` ，而且 AngularJS 是通过 `new` 关键字把它当成构造函数来调用的，所以我们可以用 ES6 提供的语法糖 `class` 来创建控制器。
 
 ```javascript
 // a.controller.js
@@ -183,10 +194,10 @@ export default {
 
 上面的写法要想不报错，必须满足一个条件，那就是系统中已经有 `b组件` 了，所以我们就要 `在a组件所在的module中注册b组件` ，或者 `a组件所在的module依赖b组件所在的module` ，但是上面声明组件的写法就注定这两种都不好实现，原因如下：
 
-1. a 组件只是一个声明，不是 angularJS 的 module ，无法注册组件
+1. a 组件只是一个声明，不是 AngularJS 的 module ，无法注册组件
 2. 在创建 a 组件的时候，并不知道他要依赖于其它的哪些组件
 
-出现这样棘手的问题，要完全归咎于 angularJS 蹩脚的模块机制，因为 angularJS 的 `module` 和 ES6 的 `module` 是不一样的，并且脱离了文件系统，~~不能动态注入，~~([oclazyload](https://github.com/ocombe/ocLazyLoad)通过 `hack` 的方式实现了动态注入)， 它也不能为我们提供具体的依赖关系。
+出现这样棘手的问题，要完全归咎于 AngularJS 蹩脚的模块机制，因为 AngularJS 的 `module` 和 ES6 的 `module` 是不一样的，并且脱离了文件系统，~~不能动态注入，~~([oclazyload](https://github.com/ocombe/ocLazyLoad)通过 `hack` 的方式实现了动态注入)， 它也不能为我们提供具体的依赖关系。
 
 ---
 
@@ -299,7 +310,7 @@ export default angular
 
 ### 6、router
 
-[ui-router](https://ui-router.github.io/ng1/) 绝对是 angularJS 的标配了，它最大的优势就是解决了路由的嵌套。
+[ui-router](https://ui-router.github.io/ng1/) 绝对是 AngularJS 的标配了，它最大的优势就是解决了路由的嵌套。
 
  `ui-router` 还支持 [Route to component](https://ui-router.github.io/ng1/tutorial/hellosolarsystem) ，所以这里所有的页面都是组件，但是和前面所提到的组件不同的是，这些组件都是有状态的 `路由组件` ，因此为它们单独开了一个 `views` 目录，这些组件的会在 `module` 文件中注册好路由，具体代码请参阅 [index页面](./src/views/index/index.module.js) 。
 

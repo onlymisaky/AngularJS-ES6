@@ -8,8 +8,6 @@ let routes = [
     }
 ];
 
-let isHtml5Mode = process.env.NODE_ENV === 'development';
-
 const config = ($locationProvider, $stateProvider, $urlRouterProvider) => {
     $locationProvider.hashPrefix('');
     $locationProvider.html5Mode({

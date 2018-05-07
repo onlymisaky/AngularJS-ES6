@@ -7,6 +7,10 @@ import list from '@/views/list/list.module';
 import config from './config';
 
 export default angular
-    .module('app.router', [uiRouter].concat(RouterList))
+    .module('app.router', [
+        uiRouter,
+        index,
+        list
+    ])
     .config(config)
     .name;

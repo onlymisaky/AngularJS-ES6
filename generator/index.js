@@ -77,7 +77,7 @@ Promise.all(psRead).then(templateList => {
         if (fs.existsSync(filePath) && fileType !== 'directive') {
             filePath += '-' + Date.parse(new Date());
         }
-        const ext = '.' + templatePathList[index].replace('.tpl', '').replace(templateRoot, '').replace('/', '');
+        const ext = '.' + path.basename(templatePathList[index], '.tpl');
         const writePath = path.resolve(filePath, filename + ext);
         psWrite.push([writePath, template, 'utf-8']);
     });

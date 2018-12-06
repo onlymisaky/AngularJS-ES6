@@ -1,38 +1,39 @@
+const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 
-const webpackCommon = require('./webpack.common');
-const paths = require('./config/paths');
+const webpackCommonConfig = require('./webpack.common');
+const environments = require('./../environments/development');
 
-const output = {
-    path: paths.dist,
-    filename: '[name].[hash].js'
-};
+module.exports = merge(webpackCommonConfig, {
+  devtool: 'cheap-module-eval-source-map',
 
-module.exports = merge(webpackCommon, {
-    output,
-    devtool: 'eval-source-map',
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': JSON.stringify(environments),
+    }),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NamedModulesPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
+  ],
 
-    // 放弃使用 webpack-dev-server
-    // 改用 express, webpack-dev-middleware, webpack-hot-middleware
-    // webpack-dev-server --hot --inline --progress --open --config  build/webpack.dev.js
-    // devServer,
-    // watch: true,
-
-    plugins: [
-        // 热加载
-        new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoEmitOnErrorsPlugin(),
-
-        // 处理 index.html
-        new HtmlWebpackPlugin({
-            template: paths.src + '/index.html',
-            inject: 'body',
-        }),
-
-        new FriendlyErrorsPlugin()
-    ]
+  devServer: {
+    hot: true,
+    port: 8080,
+    historyApiFallback: true,
+    open: true,
+    inline: true,
+    contentBase: path.resolve('static'),
+    before(app) {
+    },
+    proxy: {
+      '/api': {
+        target: 'http://news-at.zhihu.com/',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api': '/api'
+        }
+      },
+    }
+  }
 });

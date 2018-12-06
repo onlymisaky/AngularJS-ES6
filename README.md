@@ -86,7 +86,7 @@ angularjs-es6
 │   │   │   └── index.module.js
 │   ├── router
 │   ├── utils
-│   ├── app.js
+│   ├── mian.js
 │   └── index.html
 ├── static
 ├── .babelrc
@@ -201,9 +201,9 @@ export default {
 
 ---
 
-为解决这个问题，我曾想过将整个项目设计成以只有一个 `module` ，将这个 `moudel` 定义在最外层的 `app.js` 中：
+为解决这个问题，我曾想过将整个项目设计成以只有一个 `module` ，将这个 `moudel` 定义在最外层的 `mian.js` 中：
 ```javascript
-// app.js
+// mian.js
 import angular from 'angular';
 
 export default angular.module('app', []);
@@ -225,7 +225,7 @@ const ddo = {
 
 app.component('a', ddo);
 ```
-这样做不仅解决上面的问题，还可以更方便的管理第三方的依赖，假设我们的项目需要用到 [ui-router](https://ui-router.github.io/ng1/) 和 [ui-bootstrap](https://angular-ui.github.io/bootstrap/) 只要在 `app.js` 中注入即可：
+这样做不仅解决上面的问题，还可以更方便的管理第三方的依赖，假设我们的项目需要用到 [ui-router](https://ui-router.github.io/ng1/) 和 [ui-bootstrap](https://angular-ui.github.io/bootstrap/) 只要在 `mian.js` 中注入即可：
 
 ```javascript
 import angular from 'angular';

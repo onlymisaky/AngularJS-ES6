@@ -10,7 +10,6 @@ const webpackCommonConfig = require('./webpack.common');
 const environments = require('./../environments/production');
 
 module.exports = merge(webpackCommonConfig, {
-  mode: 'production',
   output: {
     path: path.resolve('dist'),
     filename: 'js/[name].[chunkhash].js',
@@ -30,9 +29,9 @@ module.exports = merge(webpackCommonConfig, {
 
   plugins: [
     // https://zhuanlan.zhihu.com/p/32361759 
-    new webpack.DefinePlugin({
-      'process.env': JSON.stringify(environments),
-    }),
+    // new webpack.DefinePlugin({
+    //   'process.env': JSON.stringify(environments),
+    // }),
     new CleanWebpackPlugin(path.resolve('dist'), {
       root: path.resolve('dist'),
       verbose: true,

@@ -4,7 +4,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 
 const rules = require('./loaders');
-// const environments = require('./../environments/index.js');
 
 /**
  * @type {webpack.Configuration}

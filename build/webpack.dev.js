@@ -9,9 +9,9 @@ module.exports = merge(webpackCommonConfig, {
   devtool: 'cheap-module-eval-source-map',
 
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env': JSON.stringify(environments),
-    }),
+    // new webpack.DefinePlugin({
+    //   'process.env': JSON.stringify(environments),
+    // }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),

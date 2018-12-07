@@ -1,3 +1,5 @@
+process.env.NODE_ENV = 'development';
+
 const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
@@ -9,9 +11,9 @@ module.exports = merge(webpackCommonConfig, {
   devtool: 'cheap-module-eval-source-map',
 
   plugins: [
-    // new webpack.DefinePlugin({
-    //   'process.env': JSON.stringify(environments),
-    // }),
+    new webpack.DefinePlugin({
+      'process.env': JSON.stringify(environments),
+    }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),

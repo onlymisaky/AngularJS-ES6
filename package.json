@@ -11,12 +11,13 @@
   ],
   "scripts": {
     "dev": "webpack-dev-server --mode development --progress --color --config  build/webpack.dev.js",
-    "build": "webpack --mode production --config build/webpack.prod.js",
+    "build": "node build/build.js",
     "new-component": "node generator component",
     "new-view": "node generator view",
     "new-directive": "node generator directive"
   },
   "dependencies": {
+    "@babel/runtime": "^7.2.0",
     "@uirouter/angularjs": "^1.0.20",
     "angular": "^1.7.5",
     "axios": "^0.18.0",
@@ -27,7 +28,6 @@
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/plugin-transform-runtime": "^7.2.0",
     "@babel/preset-env": "^7.2.0",
-    "@babel/runtime": "^7.2.0",
     "autoprefixer": "^9.4.2",
     "babel-loader": "^8.0.4",
     "clean-webpack-plugin": "^1.0.0",
@@ -41,6 +41,7 @@
     "mini-css-extract-plugin": "^0.4.5",
     "node-sass": "^4.10.0",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
+    "ora": "^3.0.0",
     "postcss-loader": "^3.0.0",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
@@ -48,7 +49,8 @@
     "url-loader": "^1.1.2",
     "webpack": "^4.27.1",
     "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "^3.1.10"
+    "webpack-dev-server": "^3.1.10",
+    "webpack-merge": "^4.1.4"
   },
   "babel": {
     "presets": [

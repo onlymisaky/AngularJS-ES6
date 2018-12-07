@@ -7,5 +7,5 @@ import router from './router/router.module';
 angular.module('app', [router]);
 
 angular.element(document).ready(() => {
-    angular.bootstrap(document, ['app']);
+  angular.bootstrap(document, ['app']);
 });

@@ -1,7 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 
 const rules = require('./loaders');
 
@@ -33,8 +32,7 @@ const webpackCommonConfig = {
         removeComments: true,
         removeTagWhitespace: true,
       }
-    }),
-    new FriendlyErrorsPlugin()
+    })
   ]
 };
 

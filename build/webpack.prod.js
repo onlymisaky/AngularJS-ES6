@@ -1,3 +1,5 @@
+process.env.NODE_ENV = 'production';
+
 const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
@@ -12,28 +14,40 @@ const environments = require('./../environments/production');
 module.exports = merge(webpackCommonConfig, {
   output: {
     path: path.resolve('dist'),
-    filename: 'js/[name].[chunkhash].js',
-    chunkFilename: 'js/[id].[chunkhash].js'
+    filename: 'js/[name].[chunkhash:8].js',
+    chunkFilename: 'js/[name].[chunkhash:8].js'
   },
+
+  mode: 'production',
+
   devtool: '#source-map',
 
-  // optimization: {
-  //   splitChunks: {
-  //     cacheGroups: {
-  //       v: {
-
-  //       }
-  //     }
-  //   }
-  // },
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        vendors: {
+          name: `chunk-vendors`,
+          test: /[\\/]node_modules[\\/]/,
+          priority: -10,
+          chunks: 'initial'
+        },
+        common: {
+          name: `chunk-common`,
+          minChunks: 2,
+          priority: -20,
+          chunks: 'initial',
+          reuseExistingChunk: true
+        }
+      }
+    }
+  },
 
   plugins: [
-    // https://zhuanlan.zhihu.com/p/32361759 
-    // new webpack.DefinePlugin({
-    //   'process.env': JSON.stringify(environments),
-    // }),
+    new webpack.DefinePlugin({
+      'process.env': JSON.stringify(environments),
+    }),
     new CleanWebpackPlugin(path.resolve('dist'), {
-      root: path.resolve('dist'),
+      root: path.resolve('./../'),
       verbose: true,
       dry: false
     }),
@@ -41,8 +55,8 @@ module.exports = merge(webpackCommonConfig, {
       { from: path.resolve('static'), to: path.resolve('dist/static'), }
     ]),
     new MiniCssExtractPlugin({
-      filename: 'css/[name].[contenthash].css',
-      chunkFilename: '[id].[contenthash].css',
+      filename: 'css/[name].[contenthash:8].css',
+      chunkFilename: 'css/[name].[contenthash:8].css',
     }),
     new OptimizeCssAssetsPlugin()
   ]

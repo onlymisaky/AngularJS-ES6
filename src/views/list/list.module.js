@@ -2,7 +2,7 @@ import angular from 'angular';
 
 import { list } from './list.component';
 import { newsPanel } from './components/news-panel/news-panel.component';
-import { ListService } from './list.sercice';
+import { ListService } from './list.service';
 
 export default angular
   .module('app.views.list', [])

@@ -18,7 +18,7 @@ export function routerConfig($locationProvider, $urlRouterProvider, $stateProvid
     .hashPrefix('')   // remove !
     .html5Mode({
       // history Api
-      enabled: !process.env.NODE_ENV === 'production',
+      enabled: !(process.env.NODE_ENV === 'production'),
       requireBase: false
     });
 

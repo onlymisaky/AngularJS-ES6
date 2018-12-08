@@ -1,4 +1,4 @@
-一个用 `AngularJS` + `ES6/ES7` + `webpack` 构建的种子项目。
+一个用 `AngularJS` + `es6/es7` + `webpack` 构建的种子项目。
 
 该项目只有两个页面，目的是为了展示如何使用主流的方式开发 `AngularJS` 应用。
 
@@ -9,7 +9,6 @@
 ![首页](https://s1.ax1x.com/2018/04/03/CpmYex.png)
 
 ![列表页](https://s1.ax1x.com/2018/04/03/Cpmtw6.png)
-
 
 ## 用法 
 
@@ -40,7 +39,6 @@ npm run build
 npm rebuild node-sass
 ```
 
-
 **提示**
 
 原则上，不建议用 [cnpm](https://npm.taobao.org/) 安装依赖，因为用 cnpm 安装依赖后，再用 vscode 打开项目会导致 cpu 狂飙至 100% ，这个锅应该是 cnpm 的。 详情可以查看这两个 issues : 
@@ -63,300 +61,111 @@ npm rebuild node-sass
 
 项目的目录结构决定了整个项目的风格，下面是整体的目录结构图：
 
-```
-angularjs-es6
-├── build
-├── src
-│   ├── api
-│   ├── assets
-│   │   └── styles
-│   ├── common
-│   │   ├── components
-│   │   │   ├── hello-world.component.js
-│   │   │   ├── hello-world.controller.js
-│   │   │   ├── hello-world.html
-│   │   │   └── hello-world.module.js
-│   ├── directives
-│   ├── views
-│   │   ├── index
-│   │   │   ├── index.component.js
-│   │   │   ├── index.controller.js
-│   │   │   ├── index.html
-│   │   │   └── index.module.js
-│   │   └── list
-│   ├── router
-│   ├── utils
-│   ├── mian.js
-│   └── index.html
-├── static
-├── jsconfig.json
-├── package.json
-└── README.md
-```
+![项目结构](https://s1.ax1x.com/2018/12/09/F80RVH.png)
 
-这个结构是在综合了多个项目和个人的经验构建出来的，现在你可能不是很明白为什么要这样设计，不要着急，你只要先总体的看一下它的结构，对它有一个大概的感知即可，继续往下读，你会明白为什么这样设计。
+这个结构是在参考的了 Angular 项目结构的基础上结合个人的经验构建出来的，现在你可能不是很明白为什么要这样设计，不要着急，你只要先总体的看一下它的结构，对它有一个大概的了解即可，继续往下读，你会明白为什么这样设计。
 
-### 2、去除不必要的
+### 2、模块设计
 
-从上面的目录结构你也许能猜出一些目录的作用，比如 `components` 里面肯定是放组件的， `directives` 里面是放指令的，但是好像还少了一些，比如 `filter` 、 `service` 这些，它们是angularJS众多概念中比较常见的，但不见得是好用的，所以我并没有将它们归入其中，不必担心我们也找到了替代方案。
+这里采用了多模块设计，angularjs 的 module 一直饱受病诟，它希望开发者通过 angular.module 来对项目进行更合理的划分，但是这个 module 实在是太弱了。首先它是脱离了文件系统的，而 es6 的 module 则是完全基于文件来设计的，一个 .js 文件就是一个 esModule ，所以当这两个结合到一块的时候，还是有些怪异的。其次 angular.module 顶多算是一个不可检测的命名空间，何为不可检测？就是当你拿到这个 module 的时候，你不知道这个 module 下面到底有哪些东西，另外当你想在 moduleA 下面注册 MyService 的时候，可能 moduleA 依赖了 moduleB ，而 moduleB 可能已经注册了一个功能不一样的 MyService ，这些你明白什么叫不可检测了吧。造成这个原因主要是因为在 angularjs 诞生的时候，还有 esModule 的概念。
 
-#### filter
+既然 angular.module 这么弱，为什么还要用它呢，干脆在整个项目中只用一个 module，这样不就可以最小化上面的那些问题了吗。的确可以这样，但是这样一来，我们打包出的文件体积就太大了，也许你想到了用按需加载的方式来切分代码，但是在 angularjs 中，只有 module 可以动态加载，而且 component 等等都是在项目启动的时候就已经创建好了，如果你想动态的加载一个 component ，你只能去动态的加载注册这个 component 的 module 。所以这个 module 虽然不好用，但是又不得不用。
 
-`filter` 是极为消耗性能的，在 `$digest` 过程中，filter会执行很至少两次，在很多关于angularJS的讨论中，都不推荐使用它。
+在整个项目中，首先定义了个三个 module ：
 
-其实 `filter` 的作用就是处理数据，当你需要处理数据的时候，你可以写一些专门处理数据的函数，然后在控制器中调用它，而视图只负责显示数据。
+1. 根模块：`angular.module('app')` 
+2. 通用模块：`angular.module('app.common')` 用于注册一些通用的 service、component等
+3. 路由模块：`angular.module('app.router')` 配置路由和路由钩子
 
-所以切记不要在视图中使用 `filter` 。
+这三个 module 是在首次启动的时候就创建好了，所以在这个三个 module 中注册的 service、component等都是可以在整个项目中直接使用的，其次是每一个页面可以定义为一个 module ，这里建议将每一个顶级的路由对应的所有代码都放在一个 module 中，然在 router module 中根据需求直接 require 这个 module 或者使用 oclazyload 动态加载。如果项目加大，可以具体到每一个组路由定义为一个 module 。
+
+### 3、干掉filter
+
+`filter` 也是一个饱受争议的设计，虽然它很有用也很好用，但是极为消耗性能的，在 `$digest` 过程中，filter会执行很至少两次，在很多关于angularJS的讨论中，都不推荐使用它。
+
+其实 filter 的作用就是转换数据，当你需要处理数据的时候，你可以写一些专门处理数据的函数，然后在 controller 或者 service 中调用它，而视图只负责显示数据。
+
+### 4、新的写法
 
 #### service
 
-自定义服务主要分为以下五种:
-1. provider
-2. service
-3. factory
-4. constant
-5. value
-
-首先要了解， `service` 、 `factory` 、 `value` 都是 `provider` 二次封装而来，功能相似只是写法不同，另外 `provider` 可以在 `config` 中注入， `constant` 则是 AngularJS 为方便我们定义常量而设计，在没有模块化的环境下确实很好用，但是在 ES6 中，我们可以利用 `const` 关键字配合模块化轻松实现它。
-
-在开发中,自定义服务的作用主要有两点:
-1. 工具方法
-2. 共享数据
-
-第一点完全不需要去考虑，我们可以像处理 `filter` 那样去做。第二点是要稍微花点功夫去解决的。
-
-为什么 `service` 可以共享数据，因为angularJS将它设计成了 `单例模式` ，而且它和 `controller` 不同， `service` 在关闭浏览器的时候才能销毁， `controller` 则有自己的声明周期。
-
-这不禁让我想到了 vue 的 `vuex` ,我们是不是也可以利用 `service` 来实现一个` angularx` 呢？或者我们单独实现一个 `x` ,来管理状态。
-
-当然，还是不要去造太多的轮子了，这里我们可以直接使用 [ng-redux](https://github.com/angular-redux/ng-redux)。
-
----
-
-如果确实有使用 `service` 和 `filter` 的场景或需求，也可以在项目中新建对应的文件夹。
-
-### 3、控制器的写法
-
-AngularJS 1.2 版本开始提供了一个 `controllerAs` 语法，让 `controller` 成为了一个纯净的 `ViewModel` ，而且 AngularJS 是通过 `new` 关键字把它当成构造函数来调用的，所以我们可以用 ES6 提供的语法糖 `class` 来创建控制器。
+在 angularjs 中，注册一个自定义服务有三种写法：`provider`、`factory`、`service` ，我们都知道 factory 和 service 都是基于 provider 封装的。而 service 的写法是最适合用 es6 的 class 来写：
 
 ```javascript
-// a.controller.js
-class A {
+export class UserService {
 
   static $inject = ['$http'];
 
   constructor($http) {
     this.$http = $http;
-    this.name = '';
   }
+
+  getUser(userId) {
+    return this.$http
+      .get(`/user/${userId}`)
+      .then(response => {
+        if (response.status === 200) {
+          return response.data;
+        }
+      });
+  }
+}
+```
+
+#### controller
+
+AngularJS 1.2 版本开始提供了一个 `controllerAs` 语法，让 `controller` 成为了一个纯净的 `ViewModel` ，而且 AngularJS 是通过 `new` 关键字把它当成构造函数来调用的，所以 controller 的写法和 service 完全一样：
+
+```javascript
+class UserController {
+
+  static $inject = ['$stateParams', 'UserService'];
+
+  user;
+
+  constructor($stateParams, UserService) {
+    this.UserService = UserService;
+    this.userId = $stateParams.id;
+  }
+
   $onInit() {
-    this.getName();
-  }
-  getName() {
-    this.$http.get('/getName').then(response => {
-      this.name = response.data;
-    });
+    this.UserService
+      .getUser(this.userId)
+      .then(user => this.user = user);
   }
 }
 ```
 
-### 4、component、module
+#### 更安全的注册
 
-这一部分是最重要的，也是我调研时间最久的。
-
-我先考虑到的只有 `component` ，但是随着思路的延伸不得不思考一下 `module` 。
-
-先看一下我最初的写法：假设我们要创建一个弹窗组件 `modal` ，实现 `modal` 需要三个文件:
-
-1. modal.html (组件的视图模板)
-2. modal.controller.js (组件的控制器)     
-3. modal.component.js (组件的声明和导出)
+什么叫更安全的注册呢，我们以上面的 UserService 为例，虽然我们我们创建的类名为 UserService ，但在将 UserService 导入到 module 的是时候，我们可以注册为 XxxService ：
 
 ```javascript
-// modal.component.js
-
-import template from './a.html';
-import controller from './a.controller';
-export default {
-  controller,
-  template,
-  bindings: { visible: '<' }
-}; 
+import { UserService } from './user.service';
+angular
+  .module('user')
+  .service('XxxService', UserService);
 ```
 
-思路很明显，并不是先创建组件，而是把组件的声明写好，然后导出，需要用到的时候再创建，这和 `vue` 的 [局部注册](https://cn.vuejs.org/v2/guide/components.html#%E5%B1%80%E9%83%A8%E6%B3%A8%E5%86%8C) 很像，但是有一个问题，假如在 `modal组件` 中我们需要用到 `my-button组件` ,那该怎么写呢？
+这样一来就全乱了套了，那样才能避免这样的情况呢？angularjs 的 .service 、 .component、 .directive 等方法除了可以用 `userModule.service('UserService', UserService)` 的写法注册，还可以用对象的方式注册 `userModule.service({UserService: UserService})` 。利用对象方式的写法，我们可以 es6 的属性的简洁表示法来注册 `userModule.service({UserService})` ，通过这种学法来注册 service、component、directive 这样就可以避免上述情况发生了。
 
-```html
-<!-- modal.html -->
-<div class="modal">
-  <my-button>关闭</my-button>
-</div>
-```
-
-上面的写法要想完美运行，必须满足一个条件，那就是系统中已经有 `my-button组件` 了，所以我们必须满足以下三点中的任意一点:
-
-1. 在 modal组件 所在的模块中注册 my-button组件
-2. modal组件 所在的模块依赖了 my-button组件 所在的模块
-3. 将 my-button组件 注册在根模块
-
-但是在上面的三个方法中都有相对应的方法：
-
-1. 可能会造成 my-button组件 重复注册
-2. 写法啰嗦，代码量多，不太好划分模块
-3. 不利于打包优化，即使你不用 my-button组件，但是相关的代码已经打包进去了，不好按需加载
-
-出现这样棘手的问题，要完全归咎于 AngularJS 蹩脚的模块机制，因为 AngularJS 的 `module` 和 ES6 的 `module` 是不一样的， 它更多是为了业务代码拆分而设计的，并且脱离了文件系统，~~不能动态注入，~~([oclazyload](https://github.com/ocombe/ocLazyLoad) 可以动态注入)， 它也不能为我们提供具体的文件依赖关系。
-
----
-
-为解决这个问题，我曾想过将整个项目设计成以只有一个 `module` ，将这个 `moudel` 定义在最外层的 `mian.js` 中：
-```javascript
-// mian.js
-import angular from 'angular';
-
-export default angular.module('app', []);
-```
-
-```javascript
-// a/index.js
-import app from '@/main.js';
-
-import './../b'; // b.js 中有了注册 b 组件的代码，此处 import 是为了执行注册的代码
-
-import template from './a.html';
-import controller from './a.controller';
-
-const ddo = {
-  controller,
-  template
-};
-
-app.component('a', ddo);
-```
-这样做不仅解决上面的问题，还可以更方便的管理第三方的依赖，假设我们的项目需要用到 [ui-router](https://ui-router.github.io/ng1/) 和 [ui-bootstrap](https://angular-ui.github.io/bootstrap/) 只要在 `mian.js` 中注入即可：
-
-```javascript
-import angular from 'angular';
-
-import uiRouter from '@uirouter/angularjs';
-import uiBootstrap from 'angular-ui-bootstrap';
-
-export default angular.module('app', [uiRouter, uiBootstrap]);
-```
-
-这样做看似是完美的，但是这是由外入内的模块化，然后再通过 `router` 由内到外的组织起来，容易让人摸不着头脑，而且代码中会充斥着很多 `import 'xxxx';` 这样的代码段，这无疑给维护的人来带来了不小的麻烦，因为他不知道为什么要 `import` ，也不知道 `import` 的内容用在了哪，这种没有指明依赖关系的模块化让代码变得不可控。
-
----
-
-又或许可以参照 `vue` 的方式来改造一下：
-
-```javascript
-// a/index.js
-import b './../b';
-import c './../c';
-
-import template from './a.html';
-import controller from './a.controller';
-
-export default {
-  controller,
-  template,
-  components: { b, c }
-};
-```
-
-在创建 `a组件` 的时候通过对 `a.components` 分析，先穿创建好 `b组件` 和 `c组件` ，也许 `b组件` 自身也用到了 `c组件` 同时还用到了 `d组件` 。 到这里你可能也发现一些问题：比如会出现重复创建组件的情况，组件依赖来过深如何处理，所以这种方式也不好。
-
----
-
-上面的两种做法都有一个相同点，那就是在整个系统中，我们指定义了一个 `module` ，而在我所有调研的项目中，几乎都是清一色的使用了多 `module` 的方式，既一个组件就是一个 `module` ，同时 `module` 也是最小的单位，这个 `Angulr` 是样的，这种做法优点和缺点都和明显。
-
-优点：
-
-1. 更小的粒度方便编写单元测试。
-2. 更贴近模块化方式和思维。
-3. 易于维护和扩展，代码在可控范围内。
-4. 更轻松的升级过渡到 Angular（Angular2.x、Angular4.x、Angular5.x）
-5. ...
-
-缺点：
-
-1. 代码量相较多（每一个模块都有引入 angular ）
-2. 管理第三方依赖成本较高（其实和第一点一样的）
-3. 框架的痕迹太重
-4. 模块数量过多时必然会造成模块名称过长或者模块名称冲突
-
-最终我还是选择了第三种方案，因为它和上面两个方面相比有一个显著的优势，那就是可维护性，具体代码可参阅 [hello-world组件](./src/components/hello-world/hello-world.module.js) 。
-
-
-### 5、directive
-
-有了 `component` 的实践后， `directive` 就更加简单了。
-
-首先要知道 `component` 是由 `directive` 封装而来的，在 1.5 版本之前， `directive` 又当组件用，又用来操作dom，但是有了 `component` 之后，该解放它了。
-
-所里这里 `directive` 的任务就是 `操作dom` ,当你必须要操作 dom 的时候，你可以用它。
-
-为了让代码更好维护，我们还可以对 `directive` 的声明加一些约定，比如 `restrict` 只能是 `A` ，没有 `template` ( `templateUrl` )、 `controller` 、 `controllerAs` 属性等等，这些约定可以是口头约定，也可以再打包的时候校验一下。
-
-同时一个 `directive` 也是一个 `module` ：
-
-```javascript
-import angular from 'angular';
-
-const ddo = {
-  restrict: 'A',
-  scope: {},
-  link(scope, element, attrs) { }
-}
-
-export default angular
-  .module('app.directives.slider')
-  .directive('slider', () => ddo)
-  .name;
-```
-
-### 6、router
+### 5、router
 
 [ui-router](https://ui-router.github.io/ng1/) 绝对是 AngularJS 的标配了，它最大的优势就是解决了路由的嵌套。
 
- `ui-router` 还支持 [Route to component](https://ui-router.github.io/ng1/tutorial/hellosolarsystem) ，所以这里所有的页面都是组件，但是和前面所提到的组件不同的是，这些组件都是有状态的 `路由组件` ，因此为它们单独开了一个 `views` 目录，这些组件的会在 `module` 文件中注册好路由，具体代码请参阅 [index页面](./src/views/index/index.module.js) 。
+ `ui-router` 还支持 [Route to component](https://ui-router.github.io/ng1/tutorial/hellosolarsystem) ，所以项目里所有的页面都是组件。
 
-### 7、项目构建
+### 6、按需加载
 
-项目构建当然使用标题中的 [webpack](https://webpack.js.org/) ，我觉的 webpack 配置是一门玄学，所以我顺便又把它再学了一遍，后面我也会写一个易懂的 `webpack` 上手教程。希望早日出现一个替代它的工具:smirk::smirk::smirk:。
+前面提到，在 angularjs 中按需加载的最小单位是 ngModule ，所以如果需要按需加载的话，将按需加载的代码用一个新的 angular.module 包装一下，然后通过 [oclazyload](git://github.com/ocombe/ocLazyLoad.git) 来加载 ngModule 。这里建议在路由层面做按需加载，具体代码可以查看 [routes.js](https://github.com/onlymisaky/angularjs-es6-seed/blob/master/src/router/routes.js) 。
 
-### 8、按需加载
-
-一般情况下，我是不推荐按需加载的，因为处理不当的话，会出现一些奇怪的状况。况且 `webpack` 打包压缩后，服务器再开启 `gzip` 压缩，浏览器所加载的文件体积还是在可接受范围内的。
-
-当然，如果你确实想按需加载，那么可以通过 `webpack` 的 `code split` 配合 [oclazyload](git://github.com/ocombe/ocLazyLoad.git) 来实现。这里提醒一下，最安全的方式是以一级路由为模块来按需加载，这样可以最大程度的保证不出问题。
-
-我在 [src/views/list/list.router.js](./src/views/list/list.router.js) 中示范了如何按需加载一个组件，这里我用的是 `import()` ，你也可以用 `require.ensure` ，但是我在反复的打包对比中发现 `import()` 可以将体积控制到最小。
-
-当使用这种方法的时候，无法实现 css 和 js 分离。 // todo
-
-### 9、生成脚本
-
-当我把这套方案用于实际开发中时，我发现了一个比较麻烦的事情，每当我想创建一个 `module` 的时候，我都要创建好多个文件，这些繁琐的事情应该交给工具完成，所以我又在项目中添加了一些快速生成 `module` 的脚本命令。用法和 `@angular/cli` 类似。
-
-```bash
-npm run new-directive foo	    # 创建一个 foo 指令
-npm run new-component foo	    # 创建一个 foo 组件
-npm run new-component foo/bar	# 在 components/foo 文件夹下创建一个 bar 组件
-npm run new-view foo	        # 创建一个 foo 视图
-npm run new-view foo/bar	    # 在 vies/foo 文件夹下创建一个 bar 视图
-npm run dev 5000	            # 在本地的 5000 端口启动服务
-```
-
-### 10、未解决的问题
+### 7、未解决的问题
 
 #### css Module
 其实我已经有相应的解决方案了，我们可以在控制器中引入样式，然后将样式挂在 `vm` 上，然后在 `view` 中使用，具体的写法如下
 ```javascript
-// a.controller.js
 import styles from './a.css';
-class A {
+class User {
   constructor() {
     this.styles = styles;
   }
@@ -375,7 +184,7 @@ class A {
 ## 参考 
 - [AngularJS styleguide (ES2015)](https://github.com/toddmotto/angularjs-styleguide)
 - [Angular 1.x和ES6的结合](https://github.com/xufei/blog/issues/29)
-- [Angular1.x + ES6 开发风格指南](https://github.com/kuitos/kuitos.github.io/issues/34)
+- [Angular1.x + es6 开发风格指南](https://github.com/kuitos/kuitos.github.io/issues/34)
 - [Angular沉思录（三）Angular中的模块机制](https://github.com/xufei/blog/issues/17)
 - [基于ui-router的非侵入式angular按需加载方案](https://github.com/kuitos/kuitos.github.io/issues/31)
 - [Lazy load AngularJS with Webpack](https://michalzalecki.com/lazy-load-angularjs-with-webpack/)

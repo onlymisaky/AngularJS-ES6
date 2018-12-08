@@ -1,7 +1,7 @@
 import './list.scss';
 import template from './list.html';
 
-import { ListService } from './list.sercice';
+import { ListService } from './list.service';
 
 /** @type {angular.IComponentOptions} */
 export const list = {

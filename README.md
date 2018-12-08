@@ -70,8 +70,8 @@ angularjs-es6
 │   ├── api
 │   ├── assets
 │   │   └── styles
-│   ├── components
-│   │   ├── hello-world
+│   ├── common
+│   │   ├── components
 │   │   │   ├── hello-world.component.js
 │   │   │   ├── hello-world.controller.js
 │   │   │   ├── hello-world.html
@@ -82,14 +82,13 @@ angularjs-es6
 │   │   │   ├── index.component.js
 │   │   │   ├── index.controller.js
 │   │   │   ├── index.html
-│   │   │   ├── index.router.js
 │   │   │   └── index.module.js
+│   │   └── list
 │   ├── router
 │   ├── utils
 │   ├── mian.js
 │   └── index.html
 ├── static
-├── .babelrc
 ├── jsconfig.json
 ├── package.json
 └── README.md
@@ -103,7 +102,7 @@ angularjs-es6
 
 #### filter
 
-`filter` 是极为消耗性能的，在 `$digest` 过程中，filter会执行很多次，至少两次，在很多关于angularJS的讨论中，都不推荐使用它。
+`filter` 是极为消耗性能的，在 `$digest` 过程中，filter会执行很至少两次，在很多关于angularJS的讨论中，都不推荐使用它。
 
 其实 `filter` 的作用就是处理数据，当你需要处理数据的时候，你可以写一些专门处理数据的函数，然后在控制器中调用它，而视图只负责显示数据。
 
@@ -126,7 +125,7 @@ angularjs-es6
 
 第一点完全不需要去考虑，我们可以像处理 `filter` 那样去做。第二点是要稍微花点功夫去解决的。
 
-为什么 `service` 可以共享数据，因为angularJS将它设计成了 `单例模式` ，而且它和 `controller` 不同， `service` 在关闭的时候才能销毁， `controller` 不用的时候就会被销毁。
+为什么 `service` 可以共享数据，因为angularJS将它设计成了 `单例模式` ，而且它和 `controller` 不同， `service` 在关闭浏览器的时候才能销毁， `controller` 则有自己的声明周期。
 
 这不禁让我想到了 vue 的 `vuex` ,我们是不是也可以利用 `service` 来实现一个` angularx` 呢？或者我们单独实现一个 `x` ,来管理状态。
 
@@ -143,21 +142,22 @@ AngularJS 1.2 版本开始提供了一个 `controllerAs` 语法，让 `controlle
 ```javascript
 // a.controller.js
 class A {
-    constructor($http) {
-        this.$http = $http;
-        this.name = '';
-    }
-    $onInit() {
-        this.getName();
-    }
-    getName() {
-        this.$http.get('/getName').then(response => {
-            this.name = response.data;
-        });
-    }
-}
 
-A.$inject = ['$http'];
+  static $inject = ['$http'];
+
+  constructor($http) {
+    this.$http = $http;
+    this.name = '';
+  }
+  $onInit() {
+    this.getName();
+  }
+  getName() {
+    this.$http.get('/getName').then(response => {
+      this.name = response.data;
+    });
+  }
+}
 ```
 
 ### 4、component、module
@@ -166,38 +166,46 @@ A.$inject = ['$http'];
 
 我先考虑到的只有 `component` ，但是随着思路的延伸不得不思考一下 `module` 。
 
-先看一下我最初的写法：
+先看一下我最初的写法：假设我们要创建一个弹窗组件 `modal` ，实现 `modal` 需要三个文件:
 
-假设我们要创建一个 `a组件` ，实现 `a组件` 需要三个文件:
-1. a.html (组件的视图模板)
-2. a.controller.js (组件的控制器，上面控制器的内容完全相同)     
-3. index.js (组件的声明和导出)
+1. modal.html (组件的视图模板)
+2. modal.controller.js (组件的控制器)     
+3. modal.component.js (组件的声明和导出)
 
 ```javascript
+// modal.component.js
+
 import template from './a.html';
 import controller from './a.controller';
 export default {
-    controller,
-    template
+  controller,
+  template,
+  bindings: { visible: '<' }
 }; 
 ```
 
-思路很明显，并不是先创建组件，而是把组件的声明写好，然后导出，需要用到的时候再创建，这和 `vue` 的 [局部注册](https://cn.vuejs.org/v2/guide/components.html#%E5%B1%80%E9%83%A8%E6%B3%A8%E5%86%8C) 很像，但是有一个问题，假如在 `a组件` 中我们需要用到 `b组件` ,那该怎么写呢？
+思路很明显，并不是先创建组件，而是把组件的声明写好，然后导出，需要用到的时候再创建，这和 `vue` 的 [局部注册](https://cn.vuejs.org/v2/guide/components.html#%E5%B1%80%E9%83%A8%E6%B3%A8%E5%86%8C) 很像，但是有一个问题，假如在 `modal组件` 中我们需要用到 `my-button组件` ,那该怎么写呢？
 
 ```html
-<!-- a.html -->
-<div>
-    你好{{ $ctrl.name }}
-    <b></b>
+<!-- modal.html -->
+<div class="modal">
+  <my-button>关闭</my-button>
 </div>
 ```
 
-上面的写法要想不报错，必须满足一个条件，那就是系统中已经有 `b组件` 了，所以我们就要 `在a组件所在的module中注册b组件` ，或者 `a组件所在的module依赖b组件所在的module` ，但是上面声明组件的写法就注定这两种都不好实现，原因如下：
+上面的写法要想完美运行，必须满足一个条件，那就是系统中已经有 `my-button组件` 了，所以我们必须满足以下三点中的任意一点:
 
-1. a 组件只是一个声明，不是 AngularJS 的 module ，无法注册组件
-2. 在创建 a 组件的时候，并不知道他要依赖于其它的哪些组件
+1. 在 modal组件 所在的模块中注册 my-button组件
+2. modal组件 所在的模块依赖了 my-button组件 所在的模块
+3. 将 my-button组件 注册在根模块
 
-出现这样棘手的问题，要完全归咎于 AngularJS 蹩脚的模块机制，因为 AngularJS 的 `module` 和 ES6 的 `module` 是不一样的，并且脱离了文件系统，~~不能动态注入，~~([oclazyload](https://github.com/ocombe/ocLazyLoad)通过 `hack` 的方式实现了动态注入)， 它也不能为我们提供具体的依赖关系。
+但是在上面的三个方法中都有相对应的方法：
+
+1. 可能会造成 my-button组件 重复注册
+2. 写法啰嗦，代码量多，不太好划分模块
+3. 不利于打包优化，即使你不用 my-button组件，但是相关的代码已经打包进去了，不好按需加载
+
+出现这样棘手的问题，要完全归咎于 AngularJS 蹩脚的模块机制，因为 AngularJS 的 `module` 和 ES6 的 `module` 是不一样的， 它更多是为了业务代码拆分而设计的，并且脱离了文件系统，~~不能动态注入，~~([oclazyload](https://github.com/ocombe/ocLazyLoad) 可以动态注入)， 它也不能为我们提供具体的文件依赖关系。
 
 ---
 
@@ -211,7 +219,7 @@ export default angular.module('app', []);
 
 ```javascript
 // a/index.js
-import app from '../../app';
+import app from '@/main.js';
 
 import './../b'; // b.js 中有了注册 b 组件的代码，此处 import 是为了执行注册的代码
 
@@ -219,8 +227,8 @@ import template from './a.html';
 import controller from './a.controller';
 
 const ddo = {
-    controller,
-    template
+  controller,
+  template
 };
 
 app.component('a', ddo);
@@ -251,9 +259,9 @@ import template from './a.html';
 import controller from './a.controller';
 
 export default {
-    controller,
-    template,
-    components: { b, c }
+  controller,
+  template,
+  components: { b, c }
 };
 ```
 
@@ -261,7 +269,7 @@ export default {
 
 ---
 
-上面的两种做法都有一个相同点，那就是在整个系统中，我们指定义了一个 `module` ，而在我所有调研的项目中，几乎都是清一色的使用了多 `module` 的方式，既一个组件就是一个 `module` ，同时 `module` 也是最小的单位，这个 `Angualr` 是样的，这种做法优点和缺点都和明显。
+上面的两种做法都有一个相同点，那就是在整个系统中，我们指定义了一个 `module` ，而在我所有调研的项目中，几乎都是清一色的使用了多 `module` 的方式，既一个组件就是一个 `module` ，同时 `module` 也是最小的单位，这个 `Angulr` 是样的，这种做法优点和缺点都和明显。
 
 优点：
 
@@ -297,15 +305,15 @@ export default {
 import angular from 'angular';
 
 const ddo = {
-    restrict: 'A',
-    scope: {},
-    link(scope, element, attrs) { }
+  restrict: 'A',
+  scope: {},
+  link(scope, element, attrs) { }
 }
 
 export default angular
-    .module('app.directives.slider')
-    .directive('slider', () => ddo)
-    .name;
+  .module('app.directives.slider')
+  .directive('slider', () => ddo)
+  .name;
 ```
 
 ### 6、router
@@ -349,9 +357,9 @@ npm run dev 5000	            # 在本地的 5000 端口启动服务
 // a.controller.js
 import styles from './a.css';
 class A {
-    constructor() {
-        this.styles = styles;
-    }
+  constructor() {
+    this.styles = styles;
+  }
 }
 ```
 ```html
@@ -359,7 +367,7 @@ class A {
 ```
 ```css
 .text-center {
-    text-align: center;
+  text-align: center;
 }
 ```
 在我看来这种实现方式是在是太惨不忍睹了，所以暂时用 **id选择器** 方式解决。

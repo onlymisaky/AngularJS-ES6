@@ -1,8 +1,12 @@
 import './index.scss';
-import controller from './index.controller';
 import template from './index.html';
 
-export default {
-    controller,
-    template
+/** @type {angular.IComponentOptions} */
+export const index = {
+  template,
+  controller: class {
+    constructor() {
+      this.listState = 'list';
+    }
+  }
 }

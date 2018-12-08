@@ -1,18 +1,15 @@
 <div id="view-list">
-    <div ng-if="!$ctrl.newsList" class="text-center p-20">
-        正在加载
-    </div>
+  <div ng-if="!$ctrl.newsList" class="text-center p-20">
+    正在加载
+  </div>
 
-    <div ng-if="$ctrl.newsList && !$ctrl.newsList.length" class="text-center p-20">
-        没有数据
-    </div>
+  <div ng-if="$ctrl.newsList && !$ctrl.newsList.length" class="text-center p-20">
+    没有数据
+  </div>
 
-    <div ng-if="$ctrl.newsList && $ctrl.newsList.length" class="list">
-        <zhihu-news-box
-            class="m-20"
-            ng-repeat="news in $ctrl.newsList track by $index"
-            news="news">
-        </zhihu-news-box>
-    </div>
+  <div ng-if="$ctrl.newsList && $ctrl.newsList.length" class="list">
+    <news-panel class="m-20" ng-repeat="news in $ctrl.newsList track by $index" news="news">
+    </news-panel>
+  </div>
 
 </div>

@@ -20,11 +20,12 @@
     "@babel/runtime": "^7.2.0",
     "@uirouter/angularjs": "^1.0.20",
     "angular": "^1.7.5",
-    "axios": "^0.18.0",
+    "nprogress": "^0.2.0",
     "oclazyload": "^1.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.2.0",
+    "@babel/plugin-proposal-class-properties": "^7.2.1",
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/plugin-transform-runtime": "^7.2.0",
     "@babel/preset-env": "^7.2.0",
@@ -70,7 +71,8 @@
     ],
     "plugins": [
       "@babel/plugin-transform-runtime",
-      "@babel/plugin-syntax-dynamic-import"
+      "@babel/plugin-syntax-dynamic-import",
+      "@babel/plugin-proposal-class-properties"
     ]
   },
   "postcss": {

@@ -1,16 +1,17 @@
 import angular from 'angular';
-import uiRouter from '@uirouter/angularjs';
+import * as uiRouter from '@uirouter/angularjs';
+import oclazyload from 'oclazyload';
 
-import index from '@/views/index/index.module';
-import list from '@/views/list/list.module';
-
-import config from './config';
+import { routerConfig } from './router.config.js';
+import { routeChange } from './router.transitions.js';
 
 export default angular
-    .module('app.router', [
-        uiRouter,
-        index,
-        list
-    ])
-    .config(config)
-    .name;
+  .module('app.router', [
+    uiRouter.default,
+    oclazyload
+  ])
+  .config(routerConfig)
+  .run(routeChange)
+  .name;
+
+

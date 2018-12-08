@@ -1,12 +1,12 @@
 import angular from 'angular';
-import uiRouter from '@uirouter/angularjs';
-import oclazyload from 'oclazyload';
 
-import List from './list.component';
-import router from './list.router';
+import { list } from './list.component';
+import { newsPanel } from './components/news-panel/news-panel.component';
+import { ListService } from './list.sercice';
 
 export default angular
-    .module('app.views.list', [uiRouter, oclazyload])
-    .component('list', List)
-    .config(router)
-    .name;
+  .module('app.views.list', [])
+  .component({ list })
+  .component({ newsPanel })
+  .service({ ListService })
+  .name;

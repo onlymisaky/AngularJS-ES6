@@ -31,6 +31,12 @@ module.exports = merge(webpackCommonConfig, {
           priority: -10,
           chunks: 'initial'
         },
+        angular: {
+          name: `chunk-angular`,
+          test: /[\\/]node_modules[\\/]angular[\\/]/,
+          priority: 1,
+          chunks: 'initial'
+        },
         common: {
           name: `chunk-common`,
           minChunks: 2,
@@ -39,7 +45,10 @@ module.exports = merge(webpackCommonConfig, {
           reuseExistingChunk: true
         }
       }
-    }
+    },
+    runtimeChunk: {
+      name: 'manifest'
+    },
   },
 
   plugins: [

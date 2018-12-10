@@ -6,7 +6,6 @@ import { ListService } from './list.service';
 
 export default angular
   .module('app.views.list', [])
-  .component({ list })
-  .component({ newsPanel })
+  .component({ list, newsPanel })
   .service({ ListService })
   .name;

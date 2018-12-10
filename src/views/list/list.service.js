@@ -1,19 +1,19 @@
-import { Http } from '@/common/services/http.service';
+import { HttpService } from '@/common/services/http.service';
 
 export class ListService {
 
-  static $inject = ['Http'];
+  static $inject = ['HttpService'];
 
   /**
    * 
-   * @param {Http} Http 
+   * @param {HttpService} HttpService 
    */
-  constructor(Http) {
-    this.Http = Http;
+  constructor(HttpService) {
+    this.HttpService = HttpService;
   }
 
   getNewsList() {
-    return this.Http
+    return this.HttpService
       .get('/4/news/latest')
       .then(response => {
         if (response.status === 200) {

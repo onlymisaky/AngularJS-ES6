@@ -1,7 +1,7 @@
 import angular from 'angular';
 
-import commonModule from '@/common/common.module';
-import routerModule from '@/router/router.module';
+import { commonModule } from '@/common/common.module';
+import { routerModule } from '@/router/router.module';
 
 import '@/assets/styles/main.scss';
 

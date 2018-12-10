@@ -5,6 +5,5 @@ import { helloAngular } from './components/hello-angular/hello-angular.component
 
 export default angular
   .module('app.views.index', [])
-  .component({ index })
-  .component({ helloAngular })
+  .component({ index, helloAngular })
   .name;

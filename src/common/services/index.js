@@ -1,3 +1,3 @@
-import { Http } from './http.service';
+import { HttpService } from './http.service';
 
-export default [{ Http }];
+export default { HttpService };

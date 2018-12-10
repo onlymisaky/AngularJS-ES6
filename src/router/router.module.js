@@ -5,7 +5,7 @@ import oclazyload from 'oclazyload';
 import { routerConfig } from './router.config.js';
 import { routeChange } from './router.transitions.js';
 
-export default angular
+export const routerModule = angular
   .module('app.router', [
     uiRouter.default,
     oclazyload

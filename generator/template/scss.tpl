@@ -1,3 +1,0 @@
-#<% fileType %>-<% filename %> {
-    
-}

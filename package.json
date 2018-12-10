@@ -11,10 +11,7 @@
   ],
   "scripts": {
     "dev": "webpack-dev-server --mode development --progress --color --config  build/webpack.dev.js",
-    "build": "node build/build.js",
-    "new-component": "node generator component",
-    "new-view": "node generator view",
-    "new-directive": "node generator directive"
+    "build": "node build/build.js"
   },
   "dependencies": {
     "@babel/runtime": "^7.2.0",

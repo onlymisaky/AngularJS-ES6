@@ -14,12 +14,12 @@
 
 1. 下载到本地
 ```bash
-git clone https://github.com/onlymisaky/angularjs-es6-seed.git
+git clone https://github.com/onlymisaky/AngularJS-ES6.git
 ```
 
 2. 切换到项目目录
 ```bash
-cd angularjs-es6-seed
+cd AngularJS-ES6
 ```
 
 3. 安装依赖，这一步很慢，耐心等待即可，如长时间没有安装好，请尝试用 [cnpm](https://npm.taobao.org/) 安装
@@ -157,7 +157,7 @@ angular
 
 ### 6、按需加载
 
-前面提到，在 angularjs 中按需加载的最小单位是 ngModule ，所以如果需要按需加载的话，将按需加载的代码用一个新的 angular.module 包装一下，然后通过 [oclazyload](git://github.com/ocombe/ocLazyLoad.git) 来加载 ngModule 。这里建议在路由层面做按需加载，具体代码可以查看 [routes.js](https://github.com/onlymisaky/angularjs-es6-seed/blob/master/src/router/routes.js) 。
+前面提到，在 angularjs 中按需加载的最小单位是 ngModule ，所以如果需要按需加载的话，将按需加载的代码用一个新的 angular.module 包装一下，然后通过 [oclazyload](git://github.com/ocombe/ocLazyLoad.git) 来加载 ngModule 。这里建议在路由层面做按需加载，具体代码可以查看 [routes.js](https://github.com/onlymisaky/AngularJS-ES6/blob/master/src/router/routes.js) 。
 
 ### 7、未解决的问题
 

@@ -1,7 +1,7 @@
 import './index.scss';
 import template from './index.html';
 
-/** @type {angular.IComponentOptions} */
+/** @type {import('angular').IComponentOptions} */
 export const index = {
   template,
   controller: class {

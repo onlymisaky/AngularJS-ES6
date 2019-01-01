@@ -5,9 +5,9 @@ export class HttpService {
   static $inject = ['$http'];
 
   /**
-   * @param {angular.IHttpService} $http 
-   * @param {angular.IHttpProvider} $httpProvider
-   * @param {angular.IHttpInterceptor} $httpInterceptor
+   * @param {import('angular').IHttpService} $http 
+   * @param {import('angular').IHttpProvider} $httpProvider
+   * @param {import('angular').IHttpInterceptor} $httpInterceptor
    */
   constructor($http) {
     this.$http = $http;
@@ -15,7 +15,7 @@ export class HttpService {
 
   /**
    * @param {string} url 
-   * @param {angular.IRequestShortcutConfig} config 
+   * @param {import('angular').IRequestShortcutConfig} config 
    */
   get(url, config = {}) {
     return this.$http.get(this.baseUrl + url, config);
@@ -24,7 +24,7 @@ export class HttpService {
   /**
  * @param {string} url 
  * @param {any} data
- * @param {angular.IRequestShortcutConfig} config 
+ * @param {import('angular').IRequestShortcutConfig} config 
  * @returns 
  */
   post(url, data, config = {}) {
@@ -33,7 +33,7 @@ export class HttpService {
 
   /**
    * @param {string} url 
-   * @param {angular.IRequestShortcutConfig} config 
+   * @param {import('angular').IRequestShortcutConfig} config 
    */
   delete(url, config = {}) {
     return this.$http.delete(this.baseUrl + url, config);
@@ -42,7 +42,7 @@ export class HttpService {
   /**
    * @param {string} url 
    * @param {any} data
-   * @param {angular.IRequestShortcutConfig} config 
+   * @param {import('angular').IRequestShortcutConfig} config 
    */
   put(url, data, config = {}) {
     return this.$http.put(this.baseUrl + url, data, config);
@@ -51,7 +51,7 @@ export class HttpService {
   /**
    * @param {string} url 
    * @param {any} data
-   * @param {angular.IRequestShortcutConfig} config 
+   * @param {import('angular').IRequestShortcutConfig} config 
    */
   patch(url, data, config = {}) {
     return this.$http.patch(this.baseUrl + url, data, config);

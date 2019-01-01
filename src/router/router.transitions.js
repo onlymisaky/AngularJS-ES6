@@ -1,11 +1,10 @@
-import * as uiRouter from '@uirouter/angularjs';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 
 routeChange.$inject = ['$transitions'];
 
 /**
- * @param {uiRouter.Transition} $transitions
+ * @param {import('@uirouter/angularjs').Transition} $transitions
  */
 export function routeChange($transitions) {
   $transitions.onStart({}, transition => {

@@ -3,7 +3,7 @@ import template from './list.html';
 
 import { ListService } from './list.service';
 
-/** @type {angular.IComponentOptions} */
+/** @type {import('angular').IComponentOptions} */
 export const list = {
   template,
   controller: class {
@@ -11,8 +11,8 @@ export const list = {
     static $inject = ['$scope', '$injector', 'ListService'];
 
     /**
-     * @param {angular.IScope} $scope 
-     * @param {angular.auto.IInjectorService} $injector 
+     * @param {import('angular').IScope} $scope 
+     * @param {import('angular').auto.IInjectorService} $injector 
      * @param {ListService} ListService
      */
     constructor($scope, $injector, ListService) {

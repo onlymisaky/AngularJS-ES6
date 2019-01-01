@@ -1,5 +1,3 @@
-import * as uiRouter from '@uirouter/angularjs';
-
 import { routes } from './routes.js';
 
 routerConfig.$inject = [
@@ -8,9 +6,9 @@ routerConfig.$inject = [
   '$stateProvider'];
 
 /**
- * @param {angular.ILocationProvider} $locationProvider 
- * @param {uiRouter.UrlRouterProvider} $urlRouterProvider 
- * @param {uiRouter.StateProvider} $stateProvider
+ * @param {import('angular').ILocationProvider} $locationProvider 
+ * @param {import('@uirouter/angularjs').UrlRouterProvider} $urlRouterProvider 
+ * @param {import('@uirouter/angularjs').StateProvider} $stateProvider
  */
 export function routerConfig($locationProvider, $urlRouterProvider, $stateProvider) {
 

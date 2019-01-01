@@ -1,7 +1,7 @@
 import './news-panel.scss';
 import template from './news-panel.html';
 
-/** @type {angular.IComponentOptions} */
+/** @type {import('angular').IComponentOptions} */
 export const newsPanel = {
   template,
   bindings: {

@@ -1,7 +1,7 @@
 autoFocus.$inject = [];
 
 /**
- * @returns {angular.IDirective}
+ * @returns {import('angular').IDirective}
  */
 export function autoFocus() {
   return {

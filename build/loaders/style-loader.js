@@ -12,7 +12,7 @@ const css = [
     loader: 'css-loader',
     options: {
       sourceMap: true,
-      module: true,
+      // modules: true,
     }
   },
   {

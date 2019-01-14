@@ -62,7 +62,7 @@ module.exports = merge(webpackCommonConfig, {
       dry: false
     }),
     new CopyWebpackPlugin([
-      { from: path.resolve('static'), to: path.resolve('dist/static'), }
+      { from: path.resolve('static'), to: path.resolve('dist'), }
     ]),
     new MiniCssExtractPlugin({
       filename: 'css/[name].[contenthash:8].css',

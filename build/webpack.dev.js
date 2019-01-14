@@ -25,7 +25,7 @@ module.exports = merge(webpackCommonConfig, {
     historyApiFallback: true,
     open: true,
     inline: true,
-    contentBase: path.resolve('static'),
+    contentBase: path.join(__dirname, './../static'),
     before(app) {
     },
     proxy: {

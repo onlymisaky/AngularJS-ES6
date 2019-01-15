@@ -11,8 +11,9 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 
 const webpackCommonConfig = require('./webpack.common');
 const environments = require('./../environments/production');
+const { getNpmargv } = require('./utils');
 
-module.exports = merge(webpackCommonConfig, {
+const webpackProdConfig = merge(webpackCommonConfig, {
   output: {
     path: path.resolve('dist'),
     filename: 'js/[name].[chunkhash:8].js',
@@ -68,7 +69,13 @@ module.exports = merge(webpackCommonConfig, {
       filename: 'css/[name].[contenthash:8].css',
       chunkFilename: 'css/[name].[contenthash:8].css',
     }),
-    new OptimizeCssAssetsPlugin(),
-    new BundleAnalyzerPlugin()
+    new OptimizeCssAssetsPlugin()
   ]
 });
+
+const report = getNpmargv('report');
+if (report === '' || report === 'true') {
+  webpackProdConfig.plugins.push(new BundleAnalyzerPlugin())
+}
+
+module.exports = webpackProdConfig;

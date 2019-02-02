@@ -22,7 +22,7 @@ const webpackCommonConfig = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve('src/index.html'),
+      template: path.resolve('public/index.html'),
       inject: 'body',
       minify: {
         collapseWhitespace: true,

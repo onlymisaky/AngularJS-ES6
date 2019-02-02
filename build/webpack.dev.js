@@ -29,7 +29,7 @@ const webpackDevConfig = merge(webpackCommonConfig, {
     inline: true,
     historyApiFallback: true,
     open: true,
-    contentBase: path.join(__dirname, './../static'),
+    contentBase: path.join(__dirname, './../public'),
     quiet: true,
     before(app) {
     },

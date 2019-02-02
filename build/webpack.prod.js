@@ -63,7 +63,7 @@ const webpackProdConfig = merge(webpackCommonConfig, {
       dry: false
     }),
     new CopyWebpackPlugin([
-      { from: path.resolve('static'), to: path.resolve('dist'), }
+      { from: path.resolve('public'), to: path.resolve('dist'), }
     ]),
     new MiniCssExtractPlugin({
       filename: 'css/[name].[contenthash:8].css',

@@ -57,11 +57,7 @@ const webpackProdConfig = merge(webpackCommonConfig, {
     new webpack.DefinePlugin({
       'process.env': JSON.stringify(environments),
     }),
-    new CleanWebpackPlugin(path.resolve('dist'), {
-      root: path.resolve('./../'),
-      verbose: true,
-      dry: false
-    }),
+    new CleanWebpackPlugin(),
     new CopyWebpackPlugin([
       { from: path.resolve('public'), to: path.resolve('dist'), }
     ]),

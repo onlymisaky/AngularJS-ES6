@@ -1,11 +1,10 @@
 const path = require('path');
-const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const rules = require('./loaders');
 
 /**
- * @type {webpack.Configuration}
+ * @type {import('webpack').Configuration}
  */
 const webpackCommonConfig = {
   entry: './src/main.js',

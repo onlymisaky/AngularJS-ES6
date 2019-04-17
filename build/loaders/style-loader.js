@@ -1,10 +1,9 @@
-const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-const mode = process.env.NODE_ENV;
+const mode = process.env._MODE;
 
 /**
- * @type {Array<webpack.RuleSetRule></webpack.RuleSetRule>}
+ * @type {Array<import('webpack').RuleSetRule>}
  */
 const css = [
   mode === 'production' ? MiniCssExtractPlugin.loader : 'style-loader',
@@ -12,7 +11,7 @@ const css = [
     loader: 'css-loader',
     options: {
       sourceMap: true,
-      // modules: true,
+     // modules: true,
     }
   },
   {
@@ -27,7 +26,7 @@ const css = [
  * @param {RegExp} reg 
  * @param {string} loader 
  * @param {object} options 
- * @returns {webpack.RuleSetRule}
+ * @returns {import('webpack').RuleSetRule}
  */
 function genLoader(reg, loader, options = {}) {
   return {
@@ -40,7 +39,7 @@ function genLoader(reg, loader, options = {}) {
 }
 
 /**
- * @type {Array<webpack.RuleSetRule>}
+ * @type {Array<import('webpack').RuleSetRule>}
  */
 const styles = [
   { test: /\.css$/, use: css },

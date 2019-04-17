@@ -1,8 +1,7 @@
-const webpack = require('webpack');
 const styles = require('./style-loader');
 
 /**
- * @type {webpack.RuleSetRule}
+ * @type {import('webpack').RuleSetRule}
  */
 const javascript = {
   test: /\.js$/,
@@ -11,7 +10,7 @@ const javascript = {
 };
 
 /**
- * @type {webpack.RuleSetRule}
+ * @type {import('webpack').RuleSetRule}
  */
 const html = {
   test: /.html$/,
@@ -19,7 +18,7 @@ const html = {
 };
 
 /**
- * @type {webpack.RuleSetRule}
+ * @type {import('webpack').RuleSetRule}
  */
 const image = {
   test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
@@ -31,7 +30,7 @@ const image = {
 };
 
 /**
- * @type {webpack.RuleSetRule}
+ * @type {import('webpack').RuleSetRule}
  */
 const font = {
   test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
@@ -43,7 +42,7 @@ const font = {
 };
 
 /**
- * @type {webpack.RuleSetRule}
+ * @type {import('webpack').RuleSetRule}
  */
 const medias = {
   test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
@@ -55,7 +54,7 @@ const medias = {
 };
 
 /**
- * @type {Array<webpack.RuleSetRule>}
+ * @type {Array<import('webpack').RuleSetRule>}
  */
 let rules = [
   javascript,

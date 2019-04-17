@@ -1,4 +1,4 @@
-process.env.NODE_ENV = 'production';
+process.env._MODE = 'production';
 
 const path = require('path');
 const webpack = require('webpack');
@@ -10,7 +10,7 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const webpackCommonConfig = require('./webpack.common');
-const environments = require('./../environments/production');
+const environments = require('../environments/production');
 const { getNpmargv } = require('./utils');
 
 const webpackProdConfig = merge(webpackCommonConfig, {
@@ -19,11 +19,8 @@ const webpackProdConfig = merge(webpackCommonConfig, {
     filename: 'js/[name].[chunkhash:8].js',
     chunkFilename: 'js/[name].[chunkhash:8].js'
   },
-
   mode: 'production',
-
   devtool: '#source-map',
-
   optimization: {
     splitChunks: {
       cacheGroups: {
@@ -49,13 +46,15 @@ const webpackProdConfig = merge(webpackCommonConfig, {
       }
     },
     runtimeChunk: {
-      name: 'manifest'
+      name: entrypoint => `runtime-${entrypoint.name}`
     },
   },
-
   plugins: [
     new webpack.DefinePlugin({
-      'process.env': JSON.stringify(environments),
+      'process.env': JSON.stringify({
+        ...environments,
+        ...{ NODE_ENV: 'production' }
+      }),
     }),
     new CleanWebpackPlugin(),
     new CopyWebpackPlugin([

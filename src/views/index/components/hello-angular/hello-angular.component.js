@@ -8,5 +8,5 @@ export const helloAngular = {
     constructor() {
       this.value = 'AngularJS';
     }
-  }
-}
+  },
+};

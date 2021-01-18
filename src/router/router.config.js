@@ -1,26 +1,26 @@
-import { routes } from './routes.js';
-
-routerConfig.$inject = [
-  '$locationProvider',
-  '$urlRouterProvider',
-  '$stateProvider'];
+import { routes } from './routes';
 
 /**
- * @param {import('angular').ILocationProvider} $locationProvider 
- * @param {import('@uirouter/angularjs').UrlRouterProvider} $urlRouterProvider 
+ * @param {import('angular').ILocationProvider} $locationProvider
+ * @param {import('@uirouter/angularjs').UrlRouterProvider} $urlRouterProvider
  * @param {import('@uirouter/angularjs').StateProvider} $stateProvider
  */
 export function routerConfig($locationProvider, $urlRouterProvider, $stateProvider) {
-
   $locationProvider
-    .hashPrefix('')   // remove !
+    .hashPrefix('') // remove !
     .html5Mode({
       // history Api
       enabled: !(process.env.NODE_ENV === 'production'),
-      requireBase: false
+      requireBase: false,
     });
 
   $urlRouterProvider.otherwise('/index');
 
-  routes.forEach(route => $stateProvider.state(route));
+  routes.forEach((route) => $stateProvider.state(route));
 }
+
+routerConfig.$inject = [
+  '$locationProvider',
+  '$urlRouterProvider',
+  '$stateProvider',
+];

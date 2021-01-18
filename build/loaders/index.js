@@ -6,7 +6,7 @@ const styles = require('./style-loader');
 const javascript = {
   test: /\.js$/,
   loader: 'babel-loader',
-  exclude: /node_modules/
+  exclude: /node_modules/,
 };
 
 /**
@@ -14,7 +14,7 @@ const javascript = {
  */
 const html = {
   test: /.html$/,
-  loader: 'html-loader'
+  loader: 'html-loader',
 };
 
 /**
@@ -25,8 +25,8 @@ const image = {
   loader: 'url-loader',
   options: {
     limit: 10000, // 10KB 以下使用 base64
-    name: 'images/[name].[hash:7].[ext]'
-  }
+    name: 'images/[name].[hash:7].[ext]',
+  },
 };
 
 /**
@@ -37,8 +37,8 @@ const font = {
   loader: 'url-loader',
   options: {
     limit: 10000,
-    name: 'fonts/[name].[hash:7].[ext]'
-  }
+    name: 'fonts/[name].[hash:7].[ext]',
+  },
 };
 
 /**
@@ -49,14 +49,14 @@ const medias = {
   loader: 'url-loader',
   options: {
     limit: 10000,
-    name: 'media/[name].[hash:7].[ext]'
-  }
+    name: 'media/[name].[hash:7].[ext]',
+  },
 };
 
 /**
  * @type {Array<import('webpack').RuleSetRule>}
  */
-let rules = [
+const rules = [
   javascript,
   html,
   image,

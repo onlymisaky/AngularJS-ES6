@@ -11,21 +11,21 @@ const css = [
     loader: 'css-loader',
     options: {
       sourceMap: true,
-     // modules: true,
-    }
+      // modules: true,
+    },
   },
   {
     loader: 'postcss-loader',
     options: {
-      sourceMap: true
-    }
-  }
+      sourceMap: true,
+    },
+  },
 ];
 
 /**
- * @param {RegExp} reg 
- * @param {string} loader 
- * @param {object} options 
+ * @param {RegExp} reg
+ * @param {string} loader
+ * @param {object} options
  * @returns {import('webpack').RuleSetRule}
  */
 function genLoader(reg, loader, options = {}) {
@@ -33,9 +33,9 @@ function genLoader(reg, loader, options = {}) {
     test: reg,
     use: css.concat({
       loader,
-      options
-    })
-  }
+      options,
+    }),
+  };
 }
 
 /**

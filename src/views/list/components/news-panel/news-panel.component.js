@@ -5,11 +5,11 @@ import template from './news-panel.html';
 export const newsPanel = {
   template,
   bindings: {
-    news: '<'
+    news: '<',
   },
   controller: class {
     constructor() {
       this.url = 'http://daily.zhihu.com/story/';
     }
-  }
-}; 
+  },
+};

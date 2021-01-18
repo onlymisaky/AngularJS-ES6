@@ -7,7 +7,7 @@ import '@/assets/styles/main.scss';
 
 angular.module('app', [
   commonModule,
-  routerModule
+  routerModule,
 ]);
 
 angular.element(document).ready(() => {

@@ -8,5 +8,5 @@ export const index = {
     constructor() {
       this.listState = 'list';
     }
-  }
-}
+  },
+};

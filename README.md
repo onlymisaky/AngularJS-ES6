@@ -1,3 +1,7 @@
+2021-01-18: 升级了项目依赖，添加了 eslint 和 stylelint 。因为发现还有小伙伴在fork本项目，由于本项目距今已经有两年多的时间，只剩下参考意义了，如果确实对 Angularjs 非常感兴趣，建议学习 <a href="https://angular.cn"  target="_blank">Angular</a> ，再不济也看一下 <a href="https://github.com/onlymisaky/AngularJS-TypeScript"  target="_blank">用 TypeScript 写 Angularjs</a> 的方式吧。
+
+---
+
 一个用 `AngularJS` + `es6/es7` + `webpack` 构建的种子项目。
 
 该项目只有两个页面，目的是为了展示如何使用主流的方式开发 `AngularJS` 应用。

@@ -3,7 +3,7 @@ process.env._MODE = 'production';
 const path = require('path');
 const webpack = require('webpack');
 const { merge } = require('webpack-merge');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
@@ -54,7 +54,7 @@ const webpackProdConfig = merge(webpackCommonConfig, {
         ...{ NODE_ENV: 'production' },
       }),
     }),
-    // new CleanWebpackPlugin(),
+    new CleanWebpackPlugin(),
     new CopyWebpackPlugin({
       patterns: [
         { from: path.resolve('public'), to: path.resolve('dist') },

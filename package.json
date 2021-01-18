@@ -10,7 +10,7 @@
     "webpack"
   ],
   "scripts": {
-    "dev": "webpack serve --open --progress --color --config  build/webpack.dev.js",
+    "dev": "webpack serve --open --mode development --progress --color --config  build/webpack.dev.js",
     "build": "node build/build.js",
     "lint-js": "eslint --fix --ext .js --ext .ts src/",
     "lint-css": "stylelint **/*.{html,css,sass,scss,less} --fix --cache"

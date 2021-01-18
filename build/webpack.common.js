@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-
+const ESLintPlugin = require('eslint-webpack-plugin');
+const StylelintWebpackPlugin = require('stylelint-webpack-plugin');
 const rules = require('./loaders');
 
 /**
@@ -10,16 +11,18 @@ const webpackCommonConfig = {
   entry: './src/main.js',
   output: {
     path: path.resolve('dist'),
-    filename: '[name].js'
+    filename: '[name].js',
   },
   module: { rules },
   resolve: {
     alias: {
-      '@': path.resolve('src')
+      '@': path.resolve('src'),
     },
-    extensions: ['.js', '.json']
+    extensions: ['.js', '.json'],
   },
   plugins: [
+    new ESLintPlugin(),
+    new StylelintWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: path.resolve('public/index.html'),
       inject: 'body',
@@ -30,9 +33,9 @@ const webpackCommonConfig = {
         removeAttributeQuotes: true,
         removeComments: true,
         removeTagWhitespace: true,
-      }
-    })
-  ]
+      },
+    }),
+  ],
 };
 
 module.exports = webpackCommonConfig;

@@ -2,27 +2,25 @@ process.env._MODE = 'development';
 
 const path = require('path');
 const webpack = require('webpack');
-const merge = require('webpack-merge');
-
+const { merge } = require('webpack-merge');
 const portfinder = require('portfinder');
-const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
-
+const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 const webpackCommonConfig = require('./webpack.common');
 const environments = require('../environments/development');
 const { getNpmargv } = require('./utils');
 
 const webpackDevConfig = merge(webpackCommonConfig, {
-  mode: 'production',
-  devtool: 'cheap-module-eval-source-map',
+  mode: 'development',
+  devtool: 'inline-source-map',
   plugins: [
     new webpack.DefinePlugin({
       'process.env': JSON.stringify({
         ...environments,
-        ...{ NODE_ENV: 'development' }
+        ...{ NODE_ENV: 'development' },
       }),
     }),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NamedModulesPlugin(),
+    // new webpack.NamedModulesPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
   ],
   devServer: {
@@ -37,14 +35,14 @@ const webpackDevConfig = merge(webpackCommonConfig, {
     },
     proxy: {
       '/api': {
-        target: 'http://news-at.zhihu.com/',
+        target: 'https://daily.zhihu.com/',
         changeOrigin: true,
         pathRewrite: {
-          '^/api': '/api'
-        }
+          '^/api': '/api',
+        },
       },
-    }
-  }
+    },
+  },
 });
 
 module.exports = new Promise((resolve, reject) => {
@@ -52,16 +50,15 @@ module.exports = new Promise((resolve, reject) => {
   portfinder.getPort((err, port) => {
     if (err) {
       return reject(err);
-    } else {
-      webpackDevConfig.devServer.port = port;
-      webpackDevConfig.plugins.push(
-        new FriendlyErrorsPlugin({
-          compilationSuccessInfo: {
-            messages: [`Your application is running here: http://localhost:${port}`],
-          }
-        })
-      );
-      return resolve(webpackDevConfig);
     }
+    webpackDevConfig.devServer.port = port;
+    webpackDevConfig.plugins.push(
+      new FriendlyErrorsWebpackPlugin({
+        compilationSuccessInfo: {
+          messages: [`Your application is running here: http://localhost:${port}`],
+        },
+      }),
+    );
+    return resolve(webpackDevConfig);
   });
 });
